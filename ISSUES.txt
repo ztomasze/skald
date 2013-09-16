@@ -1,0 +1,22 @@
+## Queen's Heart
+
+* Add links to text with skald.a
+
+## Fate
+
+* Add links to text with skald.a
+
+
+## TADS-Skald
+
+
+## GWT-Skald
+
+* gameOver: true/false field in in footer
+
+* scroll to top of new response (not to full bottom)
+* order's separators
+* bug: toggling game control tabs
+? demo game fleshed out
+* bug: doesn't seem to collapse properly when dirObj is same; in this case, prep and iobj aren't HORIZ collapsed.
+

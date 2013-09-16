@@ -1,0 +1,42 @@
+DOCUMENT THIS!
+
+
+==Communication Protocol==
+
+===Initialization===
+
+===Client Request===
+
+Send command
+cmd="string"
+
+
+
+
+===Server Response===
+<script class="header">
+</script>
+...response contents in HTML...
+<script class="footer">
+{
+  "affordances": {
+
+    "type": Action | ActionD | ActionDI | ...
+
+    "verb": verb
+
+    "dobj": dobj | ["dobj1", dobj2, ...]
+
+    "prep": prep
+  
+    "iobj": dobj | ["iobj1", iobj2, ...]
+  }  
+}
+</script>
+
+
+HTML contents and object
+* <a href="#objectName">
+* Can also send other links.  use ## for normal refs
+
+===Finalization===

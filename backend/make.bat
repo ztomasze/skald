@@ -1,0 +1,1 @@
+t3make -f QueensHeart.t3m %1 %2 %3
