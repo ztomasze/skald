@@ -4,7 +4,14 @@
 
 ## Fate
 
-* Add links to text with skald.a
+* still get output on WIN condition
+
+? Add Enter as verb, so can move from locations through Objects menus?
+
+WontFix:
++ Inventory listings don't get linked
++ Not every mention is linked.  This is due to authoring.  Highlight same color not yet implemented.
++ Not every illogical (currently impossible) action is grayed out  (again, a bit more customizing would be req on TADS side; subtlty regarding illogicalness and overriding default library: removing clothes)
 
 
 ## TADS-Skald
@@ -13,10 +20,12 @@
 ## GWT-Skald
 
 * gameOver: true/false field in in footer
+  * (why is this needed?)
 
 * scroll to top of new response (not to full bottom)
 * order's separators
 * bug: toggling game control tabs
 ? demo game fleshed out
-* bug: doesn't seem to collapse properly when dirObj is same; in this case, prep and iobj aren't HORIZ collapsed.
-
+* bug: doesn't seem to collapse properly when dirObj is same; in this case, prep and iobj aren't HORIZ collapsed.  Eg, Give > your costume > to > Benny
+                     > your ordinary clothes > to > Benny
+                     

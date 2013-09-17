@@ -268,8 +268,11 @@ booth : Booth, CustomImmovable 'old red picturesque telephone phone box/booth/ca
     performEntry(posture)
     {
          inherited(posture);
-        "With implausible celerity, you dive inside the <<skald.a(booth, 'phone booth')>>. ";
-finishGameMsg('You die a firey death!', nil);
+        // can only examine phone booth from outside of it
+        "With implausible celerity, you dive inside the phone booth. 
+        Thanks to the booth's large windows, your view of the world remains the same. ";
+
+//finishGameMsg('You die a firey death!', nil);   
     }
 ;
 
@@ -288,7 +291,7 @@ outsideOfCafe: Enterable ->cafe 'benny\'s cafe/entrance' 'Benny\'s Cafe' @street
       {
         "With an impressive mixture of hurry and nonchalance you
           step into the open cafe.<.p>";
-         inherited;
+        inherited;
       }
    }
    isProperName = true
@@ -359,7 +362,6 @@ cafe: Room 'Inside Benny\'s Cafe'
     }
 
   }
-
 
   north = toiletDoor
   south = street
@@ -747,7 +749,7 @@ outsideOfToilet : Enterable, CustomImmovable ->toiletDoor
   {
     if(toiletDoor.isOpen)
     "A brilliant thought flashes through your superlative
-         brain: detailed examination of the toilet would be
+         brain: detailed examination of the restroom would be
          extremely facilitated if you entered it.";
     else
         "With a tremendous effort of will, you summon your
@@ -909,7 +911,7 @@ lightSwitch : Flashlight, Fixture 'light switch' 'light switch' @toilet
             inherited;
             if (self.isOn && !coin.moved) {
                 "As the fluorescent bulb flickers to life, your keen eyes catch a
-                subtle glint from the across the room near the toilet. ";
+                subtle glint from the across the room near the <<skald.a(lavatory)>>. ";
             }
         }
     }
@@ -952,7 +954,7 @@ coin: PresentLater, Thing 'valuable silver coin/quidbuck' 'silver coin' @toilet
     {
         inherited;
         "You crouch into the Sleeping Dragon position and deftly, with
-        paramount stealth, you pocket the lost coin. ";
+        paramount stealth, you pocket the lost <<skald.a(coin, 'coin')>>. ";
         achievement.awardPointsOnce();
     }
   }
@@ -1071,7 +1073,7 @@ me: Actor
            case toilet:
              if(toiletDoor.isOpen)
              {
-                "The door to the bar stands open to tens of curious eyes.
+                "The door to the cafe stands open to tens of curious eyes.
                 You'd be forced to arrest yourself for lewd conduct.";
                 exit;
              }

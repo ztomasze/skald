@@ -6,20 +6,12 @@ web example:
 make with -source tadsnet
 
 
-
-
-
-
 adv's browser.t: provides the various hooks into TADS that then pass control to the webUI
 webui.tl -> webui.t: the whole state management system between the browser and the server
   --includes the whole client side in webUIres
   
 
-
 -webhost localhost
-
-
-
 
 
 
@@ -33,3 +25,4 @@ User can created windows not guaranteed to be idempotent, with warning.  Basical
 (Might also have "idempotent [verb]" that would run an idempotent version of that command.)
 
 Might also need a filter between front and end back end to filter/read stuff from like banner windows and the like.
+
