@@ -271,8 +271,6 @@ booth : Booth, CustomImmovable 'old red picturesque telephone phone box/booth/ca
         // can only examine phone booth from outside of it
         "With implausible celerity, you dive inside the phone booth. 
         Thanks to the booth's large windows, your view of the world remains the same. ";
-
-//finishGameMsg('You die a firey death!', nil);   
     }
 ;
 

@@ -4,9 +4,10 @@
 
 ## Fate
 
-* still get output on WIN condition
-
-? Add Enter as verb, so can move from locations through Objects menus?
+? Add Enter as verb, so can move from locations through Objects menus
+  * Should add Exit too, then.
+  * Some weird Enter behavior to be fixed: can try to Enter street from within phone booth, but get weird response and no result
+  * Will require some tweaking to drop doors from the list.
 
 WontFix:
 + Inventory listings don't get linked
@@ -20,7 +21,7 @@ WontFix:
 ## GWT-Skald
 
 * gameOver: true/false field in in footer
-  * (why is this needed?)
+  * Gives the definite indiction that the game has ended, allowing the UI to respond appropriately
 
 * scroll to top of new response (not to full bottom)
 * order's separators

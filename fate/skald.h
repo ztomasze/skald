@@ -609,8 +609,9 @@ modify processOptions(lst) {
     if (skald.isOn()) {
         // do not print normal options, but game is now over
         skaldServer.quit = true;
-//TODO: can we turn off Look of a new location?  Why do we get that on win but not lose?
+        // terminate the current command with no further processing (so no Look)
+        throw new TerminateCommandException();
     }else {
-        replaced(lst);  //as normal
+        replaced(lst);  // run as normal
     }
 }
