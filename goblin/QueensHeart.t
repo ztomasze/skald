@@ -13,8 +13,8 @@
  */
 #include <adv3.h>
 #include <en_us.h>
-#include "skald.h"
-#include "skaldserver.h"
+#include "tads-skald/skald.h"
+#include "tads-skald/skaldserver.h"
 
 /*
  * Game credits and version information.
@@ -38,12 +38,12 @@ versionInfo: GameID
 skald : SkaldUI
     // order, verb, prep
     verbNames = [
-        LookAction -> [1010, 'Look'], 
+        LookAction -> [1010, 'Look'],
         InventoryAction -> [1100, 'Inventory'],
-                
-        ExamineAction -> [2010, 'Examine'], 
-        TakeAction -> [2020, 'Get'], 
-        DropAction -> [2030, 'Drop'], 
+
+        ExamineAction -> [2010, 'Examine'],
+        TakeAction -> [2020, 'Get'],
+        DropAction -> [2030, 'Drop'],
         AttackAction -> [2040, 'Attack'],
 
         AttackWithAction -> [3010, 'Kill', 'with'],   //TIAaction
@@ -52,7 +52,7 @@ skald : SkaldUI
         TravelDirAction -> [4010, 'Go'],
         WaitAction -> [4020, 'Wait']
     ]
-    
+
     exitDirVerbs = [
         TravelViaAction -> [true]
     ]
@@ -63,7 +63,7 @@ gameMain: GameMainDef
     initialPlayerChar = me
 
     newGame() {
-        //skald.start();
+        skald.start();
         inherited();
     }
 
@@ -79,7 +79,7 @@ gameMain: GameMainDef
     }
 
     showIntro() {
-        """You stand alone in the dark, <<skald.a(sorrow)>> in 
+        """You stand alone in the dark, <<skald.a(sorrow)>> in
         your heart and <<skald.a(worms, 'earthworms')>> in your hand.
         \b
         You stand listening.
