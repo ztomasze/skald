@@ -11,7 +11,7 @@
  *
  * To include this server in your game, do the following:
  * 
- * 1) use the normal adv3/adv3 library
+ * 1) Use the normal adv3/adv3 library
  *
  * 2) Close any open TADS workbench and open your .t3m file in a plain 
  * text-editor.  Make the following changes:
@@ -25,9 +25,11 @@
  *       defined and then your resulting server is unresponsive, you 
  *       probably forgot this step.)
  *
- * 3) Create an htdocs/ subfolder in your project and put the Skald web
- * files in it.  (You can change this name by modifying skaldServer.ROOT.)  
- * Then add this folder as a resource to your .t3m file:  -res htdocs
+ * 3) Copy the tads-skald subfolder into your project.  The Skald web
+ * files go in the tads-skald/htdocs folder.  (You can change this name 
+ * by modifying skaldServer.ROOT.)  
+ * Then add this folder as a resource to your .t3m file:  
+ *   -res tads-skald/htdocs
  *
  * See skald.h for the configuration required and how to call 
  * skaldServer.start() to get the server going.
@@ -151,7 +153,7 @@ skaldServer : object
      *   As a URL relative to the server root, this must begin but not end 
      *   with a / character.  For '/', just use ''.
      */
-    ROOT = '/htdocs'    
+    ROOT = '/tads-skald/htdocs'    
     
     /*
      *   The module or folder in which the UI files are located.  Requests sent

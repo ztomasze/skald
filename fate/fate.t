@@ -43,8 +43,8 @@
 #include <en_us.h>
 
 //ZT: skald
-#include "skald.h"
-#include "skaldserver.h"
+#include "tads-skald/skald.h"
+#include "tads-skald/skaldserver.h"
 
 //ZT: skald
 skald: SkaldUI
@@ -90,9 +90,9 @@ modify Thing {
             }
         }
     }
-    
+
     dobjFor(GiveTo) {
-        verify() { 
+        verify() {
             // illogical to ask to give unsupported topics
             local giveTopics = skald.getTopics(gIobj, GiveToAction, true);  //asobjs
             if (!giveTopics.indexOf(gDobj)) {
@@ -100,7 +100,7 @@ modify Thing {
                     in having {the dobj/him}.');
             }
         }
-    }        
+    }
 }
 
 modify Room {
@@ -269,7 +269,7 @@ booth : Booth, CustomImmovable 'old red picturesque telephone phone box/booth/ca
     {
          inherited(posture);
         // can only examine phone booth from outside of it
-        "With implausible celerity, you dive inside the phone booth. 
+        "With implausible celerity, you dive inside the phone booth.
         Thanks to the booth's large windows, your view of the world remains the same. ";
     }
 ;
@@ -410,7 +410,7 @@ customers: Person 'customers/customer/people/men/women' 'customers' @cafe
 ;
 
 + customersSitting: HermitActorState
-  specialDesc = "A group of <<skald.a(customers)>> are sitting 
+  specialDesc = "A group of <<skald.a(customers)>> are sitting
       around enjoying their excellent <<skald.a(food)>>. "
   stateDesc = "A group of helpless and unsuspecting mortals, the kind
     Captain Fate swore to defend the day his parents choked on a
@@ -1183,12 +1183,12 @@ gameMain: GameMainDef
         }
         //CONT:
         // Document hostname requirements....
-        
-        
+
+
         skald.start();
         //XXX: for now, score links cause problems in SkaldUI, so turn off
         libGlobal.scoreObj.scoreNotify.isOn = nil;
-        
+
         inherited();
         skald.shutdown();
     }
