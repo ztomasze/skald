@@ -47,7 +47,7 @@ skald : SkaldUI
         AttackAction -> [2040, 'Attack'],
 
         AttackWithAction -> [3010, 'Kill', 'with'],   //TIAaction
-        ListenToAction -> [3000, 'Listen', 'to'],
+        ListenToAction -> [3000, 'Listen to'],
 
         TravelDirAction -> [4010, 'Go'],
         WaitAction -> [4020, 'Wait']
@@ -63,7 +63,7 @@ gameMain: GameMainDef
     initialPlayerChar = me
 
     newGame() {
-        skald.start();
+        //skald.start();
         inherited();
     }
 
@@ -155,15 +155,38 @@ VerbRule(Trace)
      verbPhrase = 'trace/tracing (what)'
 ;
 
-VerbRule(Listen)
+VerbRule(CheckOn)
     ('check' | 'check' 'on') singleDobj : ListenToAction
 ;
 modify Thing
-     dobjFor(Trace)
-     {
-       verify()
-       {
-         illogical('Tracing {that dobj/him} would achieve very little. ');
-       }
-     }
+    
+    dobjFor(ListenTo) {
+        verify() {
+            illogical('{The dobj/he}, like most of its kind, is silent.');
+        }
+    }
+    
+    dobjFor(Attack) {
+        verify() {
+            illogical('Time will eventually destroy {the dobj/him}.  
+                There doesn\'t seem to be much point in hastening the process.');
+        }
+    }
+
+    dobjFor(AttackWith) {
+        verify() {
+            illogical('Time will eventually destroy {the dobj/him}<<if (gDobj == gIobj)>> 
+                without your help.<<else>>. 
+                It would be a shame to damage {the iobj/him} while trying to hasten the process.<<end>>');
+        }
+    }
+    
+    
+    dobjFor(Trace)
+    {
+      verify()
+      {
+        illogical('Tracing {that dobj/him} would achieve very little. ');
+      }
+    }
 ;

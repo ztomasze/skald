@@ -8,6 +8,18 @@ me: Actor
     name = 'yourself'
     location = the_western_tunnels
     deluded = true
+    
+    dobjFor(ListenTo) {
+        verify() {
+            logical;
+        }
+        action() {
+            "You hear yourself muttering under your breath.  \"Stop that!\" you hiss crossly.
+            The mumbling stops. 
+            \b
+            After a moment, your mind wanders, and you begin to whisper to yourself once more.";
+        }
+    }
 ;
 
 + sorrow: Thing 'sorrow' 'sorrow'

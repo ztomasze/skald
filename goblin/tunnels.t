@@ -69,6 +69,25 @@ the_western_tunnels: Room 'The Western Tunnels'
             }
         }
     }
+    
+    dobjFor(ListenTo) {
+        verify() {
+            logical;
+        }
+        action() {
+            if (self.inHole) {
+                "You hear the mole scratching and rooting in the sandy soil.";
+            }else {
+                if (self.alive) {
+                    "{The self/he} is sniffing and snuffling and occasionally grunting.";
+                }else {
+                    "{The self/he} is silent now.";
+                }
+            }
+        }
+    }
+
+    
     dobjFor(AttackWith) {
         check() { 
             if (self.inHole) {

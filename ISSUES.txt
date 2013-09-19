@@ -1,5 +1,9 @@
 ## Queen's Heart
 
+* get mole behavior working again
+* Listen: fix default response to deal with single/plural objects
+* Attack and AttackWith: works for important objects?  mole, self, worms, queen, girl
+
 * Add links to text with skald.a
 
 ## Fate
