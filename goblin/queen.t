@@ -59,7 +59,13 @@ the_queens_chambers: Room 'The Queen\'s Chambers'
     so often laid your head, listening for the beating of her heart."
 
     properName = true
-    initSpecialDesc = "The Queen slumbers still upon the bier.";
+    initSpecialDesc = "The Queen slumbers still upon the bier."
+
+    dobjFor(ListenTo) {
+        verify() { 
+            logical; 
+        }
+    }
 ;
 
 ++ SimpleNoise 'heart' 'heartbeat'

@@ -63,7 +63,7 @@ gameMain: GameMainDef
     initialPlayerChar = me
 
     newGame() {
-        //skald.start();
+        skald.start();
         inherited();
     }
 
@@ -162,7 +162,7 @@ modify Thing
     
     dobjFor(ListenTo) {
         verify() {
-            illogical('{The dobj/he}, like most of its kind, is silent.');
+            illogical('{The dobj/he} is silent.');
         }
     }
     

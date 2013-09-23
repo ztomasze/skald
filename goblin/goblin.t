@@ -6,7 +6,7 @@
  */
 me: Actor 
     name = 'yourself'
-    location = the_western_tunnels
+    location = the_eastern_tunnels
     deluded = true
     
     dobjFor(ListenTo) {

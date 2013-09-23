@@ -1,10 +1,16 @@
 ## Queen's Heart
 
-* get mole behavior working again
-* Listen: fix default response to deal with single/plural objects
+* skald.a's when dropping worms
+* Test: mole routine
+
 * Attack and AttackWith: works for important objects?  mole, self, worms, queen, girl
 
 * Add links to text with skald.a
+
+? Test, text: put things in hole
+
+? Wait behavior with mole: scurries a bit; or eats worms and returns to hole, giving you a little joy.
+
 
 ## Fate
 
