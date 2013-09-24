@@ -47,7 +47,8 @@ skald : SkaldUI
         AttackAction -> [2040, 'Attack'],
 
         AttackWithAction -> [3010, 'Kill', 'with'],   //TIAaction
-        ListenToAction -> [3000, 'Listen to'],
+        EatAction -> [3000, 'Eat'],
+        ListenToAction -> [3005, 'Listen to'],
 
         TravelDirAction -> [4010, 'Go'],
         WaitAction -> [4020, 'Wait']
@@ -61,6 +62,7 @@ skald : SkaldUI
 gameMain: GameMainDef
     /* the initial player character is 'me' */
     initialPlayerChar = me
+    beforeRunsBeforeCheck = nil  // run beforeAction() tests after both verify() and check()
 
     newGame() {
         skald.start();

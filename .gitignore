@@ -1,6 +1,11 @@
-/Skald/
+*.tdbconfig
+*_dbg.t3
+*.t3s
+*.t3
+GameInfo.txt
 debug/
-backend/Scripts/*
+goblin/Scripts/*
+goblin/tads-skald
 fate/Scripts/*
 
 #################

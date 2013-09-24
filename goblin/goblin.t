@@ -17,13 +17,13 @@ me: Actor
             "You hear yourself muttering under your breath.  \"Stop that!\" you hiss crossly.
             The mumbling stops. 
             \b
-            After a moment, your mind wanders, and you begin to whisper to yourself once more.";
+            After a moment, your mind wanders, and you begin to whisper to <<skald.a(me)>> once more.";
         }
     }
 ;
 
 + sorrow: Thing 'sorrow' 'sorrow'
-    "Sometimes your sorrow is a dark void in your chest, sometimes it
+    "Sometimes your <<skald.a(sorrow)>> is a dark void in your chest, sometimes it
     is a gray weight between your shoulders, and sometimes it is a
     languid emptiness everywhere. At the moment, it is 
     <<if self.weight <= 0>> not so heavy.
@@ -35,13 +35,13 @@ me: Actor
     weight = 1
     
     dobjFor(Drop) {
-        verify() {illogicalNow('If only it were that easy to be free of your sorrow.');}
+        verify() {illogicalNow('If only it were that easy to be free of your <<skald.a(sorrow)>>.');}
     }
     dobjFor(Feel) remapTo(Examine, self);
 ;
 
 + worms: Food 'earth worms/earthworms' 'earthworms'
-    "Cool and glistening, the earthworms slowly writhe in their consternation.  
+    "Cool and glistening, the <<skald.a(worms, 'earthworms')>> slowly writhe in their consternation.  
      It tickles a little when they do that."
     isPlural = true
     dobjFor(Attack) {
@@ -56,37 +56,20 @@ me: Actor
             self.moveInto(nil);
         }
     }
-    dobjFor(Drop) {
-        action() {
-            inherited;
-            if (me.location == the_eastern_tunnels && mole.inHole) {
-                mole.inHole = nil;
-                mole.moved = true;
-                extraReport('\bThe worms wriggle there for a while.
-                    \b
-                    After a moment, the mole pushes his nose a little
-                    farther out of his hole.  He twitches it in your direction,
-                    but goblins are not easily detected when they don\'t want 
-                    to be.\b
-                    The mole pushes its plump body out of the hole and 
-                    hurries over to the earthworms.');
-            }
-        }
-    }
     dobjFor(Eat) {
         action() { 
             inherited;
             "You slurp them down one a time.  They are better that way,
             like cold fat snotty noodles.  Sometimes they can be bitter or gritty if
-            you chew them first.";          
+            you chew them first.";       
         }
     }
 ;
 
 + sword : Thing 'bronze tarnished sword/blade' '<<if me.deluded>>bronze<<else>>tarnished<<end>> sword'
     "It is <<me.deluded ? 
-      "one of the rare ever-shiny bronze blades of the Goblin Royal Guard." :
-      "a tarnished old sword, pitted with age and green with patina.">>"
+      "one of the rare ever-shiny <<skald.a(sword, 'bronze blade')>>s of the Goblin Royal Guard." :
+      "a tarnished old <<skald.a(sword, 'sword')>>, pitted with age and green with patina.">>" //"
     iobjFor(AttackWith) {
         verify() { return true;}
     }
@@ -94,7 +77,7 @@ me: Actor
         check() { 
             if (me.deluded) 
                 failCheck('"A goblin knight should be ever-ready and ever-armed," you
-                repeat to yourself.  Your sword is a symbol of your station.
+                repeat to yourself.  Your <<skald.a(sword, 'sword')>> is a symbol of your station.
                 You cannot bear to part with it so casually.');
         }
     }

@@ -1,10 +1,6 @@
 ## Queen's Heart
 
-* skald.a's when dropping worms
-* Test: mole routine
-
 * Attack and AttackWith: works for important objects?  mole, self, worms, queen, girl
-
 * Add links to text with skald.a
 
 ? Test, text: put things in hole
@@ -39,4 +35,6 @@ WontFix:
 ? demo game fleshed out
 * bug: doesn't seem to collapse properly when dirObj is same; in this case, prep and iobj aren't HORIZ collapsed.  Eg, Give > your costume > to > Benny
                      > your ordinary clothes > to > Benny
-                     
+? Do not highlight an object after all if it it has no affordances to display
+  * Or, if do highlight to indicate, do it slightly differently (as per disabled).
+  

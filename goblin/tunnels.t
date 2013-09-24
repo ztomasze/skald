@@ -37,7 +37,7 @@ the_eastern_tunnels: Room 'The Eastern Tunnels'
   a dozen posts, you stopped scratching."
     isPlural = true;
 
-+ mole : Food 'mole' '<<!self.alive ? 'dead ' : ''>>mole'
++ mole : Food 'dead mole' '<<!self.alive ? 'dead ' : ''>>mole'
     "<<self.alive ? "It is a young <<skald.a(mole)>> with soft brown fur and muddy paws.
         It is wrinkling its nose at you as it sniffs the air in that puzzled
         near-sighted way that moles do." :
@@ -50,6 +50,30 @@ the_eastern_tunnels: Room 'The Eastern Tunnels'
     initDesc = "All you can see of the <<skald.a(mole)>>  at the moment is the pink tip of his
         twitching nose."
     
+    afterAction() {            
+        if (gActionIs(Drop) && gDobj == worms && self.alive && self.inHole) {
+                mole.inHole = nil;
+                mole.moved = true;
+                extraReport('\bThe worms wriggle there for a while.
+                    \b
+                    After a moment, the mole pushes his nose a little
+                    farther out of his hole.  He twitches it in your direction,
+                    but goblins are not easily detected when they don\'t want 
+                    to be.\b
+                    The <<skald.a(mole)>> pushes its plump body out of the hole and 
+                    hurries over to the <<skald.a(worms, 'earthworms')>>.');
+        }        
+    }
+    
+    beforeAction() {
+        if (gActionIs(Take) && self.alive && !self.inHole) {
+            inherited;
+            self.moveInto(nil);
+            extraReport('As you lean down to pick up the <<skald.a(gDobj)>>, the mole suddenly realizes you are there.
+                With a squeak, he dashes away and disappears back into his <<skald.a(hole, 'hole')>>.\b');
+        }
+    }
+        
     dobjFor(Take) {
         verify() {
             if (self.inHole) {
@@ -97,9 +121,6 @@ the_eastern_tunnels: Room 'The Eastern Tunnels'
             if (self.inHole) {
                 failCheck('The <<skald.a(mole)>>  is still safe in his <<skald.a(hole, 'hole')>> .');
             }
-//            if (IndirectObject == sword) {
-//                return true; 
-//            }
             inherited;
             return;
         }
