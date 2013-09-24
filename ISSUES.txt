@@ -3,10 +3,15 @@
 * Attack and AttackWith: works for important objects?  mole, self, worms, queen, girl
 * Add links to text with skald.a
 
-? Test, text: put things in hole
+Text mode tests:
+* put things in hole
+* trace things
+* queen: depression, blanket, chest
+* touch, kiss, etc?  attack, kill
+* give mole, worms, (sorrow, sword)
 
 ? Wait behavior with mole: scurries a bit; or eats worms and returns to hole, giving you a little joy.
-
+? when tracing with mole in inventory, use the blood
 
 ## Fate
 

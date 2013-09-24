@@ -49,6 +49,7 @@ skald : SkaldUI
         AttackWithAction -> [3010, 'Kill', 'with'],   //TIAaction
         EatAction -> [3000, 'Eat'],
         ListenToAction -> [3005, 'Listen to'],
+        TraceAction -> [3020, 'Trace'],
 
         TravelDirAction -> [4010, 'Go'],
         WaitAction -> [4020, 'Wait']

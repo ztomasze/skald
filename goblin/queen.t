@@ -8,8 +8,8 @@ the_queens_chambers: Room 'The Queen\'s Chambers'
     "This round room is lined in stone.  Although it is just as dark in here
     as the rest of the Warren, it always feels brighter to you.
     \b
-    In the center of the room is a bier, surrounded by a protective mandala
-    etched upon the floor."
+    In the center of the room is a <<skald.a(bier)>>, 
+    surrounded by a protective <<skald.a(mandala)>> etched upon the floor."
 
     east = the_western_tunnels
 
@@ -18,21 +18,21 @@ the_queens_chambers: Room 'The Queen\'s Chambers'
     }
 ;
 
-+ Decoration 'bier/fur*furs' 'bier'
++ bier: Decoration 'bier/fur*furs' 'bier'
     "The bier is a hewn stone slab covered in multiple layers of furs.";
 
-+ Fixture 'magic magical protective circle/mandala/ward' 'mandala'
++ mandala: Fixture 'magic magical protective circle/mandala/ward' 'mandala'
     "The mandala is a protective Ward formed of swirls, runes, and glyphs etched
-    upon the floor in a large circle around the bier.  This ancient goblin magic
+    upon the floor in a large circle around the <<skald.a(bier)>>.  This ancient goblin magic
     hides the queen from the ravages of time and iron.  You have spent countless
     hours--sometimes whole days--carefully tracing and retracing the lines in
     chalk or in blood.  Of course, material rich in iron works best,
     for \"like repels like.\""
 
     dobjFor(Trace) {
-        verify() { return nil;}
+        verify() { logical; }
         action() {
-            "You trace your fingers over the lines of the mandala, murmuring
+            "You trace your fingers over the lines of the <<skald.a(mandala)>>, murmuring
             the incantations written there from memory.  This does not make the
             Ward any stronger, but it calms you a little.";
             knot.tightness = knot.tightness - 2;
@@ -44,7 +44,7 @@ the_queens_chambers: Room 'The Queen\'s Chambers'
 ;
 
 + queen: Fixture 'upon queen' 'Queen'
-    "The Queen lies pale and slender beneath a fur blanket.  Her eyes are closed,
+    "The <<skald.a(queen)>> lies pale and slender beneath a fur blanket.  Her eyes are closed,
     so you gaze upon her for a while.  As always, her serenity fills your chest
     with a bittersweet ache.
     \b
@@ -59,7 +59,7 @@ the_queens_chambers: Room 'The Queen\'s Chambers'
     so often laid your head, listening for the beating of her heart."
 
     properName = true
-    initSpecialDesc = "The Queen slumbers still upon the bier."
+    initSpecialDesc = "The <<skald.a(queen)>> slumbers still upon the bier."
 
     dobjFor(ListenTo) {
         verify() { 
@@ -98,7 +98,7 @@ the_queens_chambers: Room 'The Queen\'s Chambers'
         \b
         Quivering, you take a deep breath, hold it, and listen again.  And now
         you feel it once more, faintly, that beating you know so well, the beating
-        of the Queen's heart.
+        in your ears, the beating of the Queen's heart.
         \b
         Puzzled, you exhale.  The beating stops.
         \b
