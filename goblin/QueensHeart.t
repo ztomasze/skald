@@ -66,7 +66,7 @@ gameMain: GameMainDef
     beforeRunsBeforeCheck = nil  // run beforeAction() tests after both verify() and check()
 
     newGame() {
-        skald.start();
+        //skald.start();
         inherited();
     }
 

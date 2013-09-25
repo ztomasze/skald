@@ -1,14 +1,10 @@
 ## Queen's Heart
 
-* Attack and AttackWith: works for important objects?  mole, self, worms, queen, girl
+* Attack and AttackWith: works for important objects? queen, girl
 * Add links to text with skald.a
 
 Text mode tests:
-* put things in hole
-* trace things
-* queen: depression, blanket, chest
-* touch, kiss, etc?  attack, kill
-* give mole, worms, (sorrow, sword)
+* kiss, attack, kill; wake, feed
 
 ? Wait behavior with mole: scurries a bit; or eats worms and returns to hole, giving you a little joy.
 ? when tracing with mole in inventory, use the blood

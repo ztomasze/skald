@@ -35,9 +35,13 @@ the_queens_chambers: Room 'The Queen\'s Chambers'
             "You trace your fingers over the lines of the <<skald.a(mandala)>>, murmuring
             the incantations written there from memory.  This does not make the
             Ward any stronger, but it calms you a little.";
-            knot.tightness = knot.tightness - 2;
-            if (knot.tightness <= 0) {
-                knot.moveInto(nil);
+            if (knot.tightness > 0) {
+                 knot.tightness = knot.tightness - 2;
+                if (knot.tightness <= 0) {
+                    knot.tightness = 0;
+                    knot.moveInto(nil);
+                    "\bThe <<knot.name>> loosens. ";
+                }
             }
         }
     }
@@ -55,18 +59,48 @@ the_queens_chambers: Room 'The Queen\'s Chambers'
     You alone protect her while she slumbers.  You, alone.
     \b
     Her breath is so faint now that you cannot see the blanket rise or fall.
-    Over her chest, there is a faint depression in the blanket where you have
-    so often laid your head, listening for the beating of her heart."
+    Over her chest, there is a faint <<skald.a(depression)>> in the <<skald.a(blanket)>> 
+    where you have so often laid your head, listening for the beating of her heart."
 
     properName = true
     initSpecialDesc = "The <<skald.a(queen)>> slumbers still upon the bier."
 
+    dobjFor(Kiss) {
+        check() {
+            failCheck('You sigh.  Despite your love, you are no Prince Charming. 
+                You are but a lowly Goblin Guard, ever-faithful. 
+                It is not your place to touch the Queen, as much as you desire it.
+                She will wake... in time.');
+        }
+    }
+    iobjFor(GiveTo) {
+        verify() {
+            illogicalNow('The Queen is in no state to accept your gifts.');
+        }
+    }
     dobjFor(ListenTo) {
         verify() { 
             logical; 
         }
+    }    
+/*
+    dobjFor(Touch) {
+        action() {
+            "You lay your hand upon the blanket at the edge of the bier for a while.";
+        }
     }
+ */    
 ;
+
++ blanket: Decoration 'fur blanket' 'blanket'
+    "The blanket, once luxurious, is now getting tattered and thin in places.  
+    You have patched it where you could with mole pelts. ";
+
+++ depression: Decoration 'queen\'s chest/depression' 'chest/depression'
+    "Despite your best efforts to be gentle when you listen for the Queen's heartbeat, 
+    the long repetition has left a very faint head-sized depression in the blanket 
+    over the Queen's chest.";
+
 
 ++ SimpleNoise 'heart' 'heartbeat'
     desc {
