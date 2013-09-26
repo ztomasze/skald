@@ -65,6 +65,33 @@ the_queens_chambers: Room 'The Queen\'s Chambers'
     properName = true
     initSpecialDesc = "The <<skald.a(queen)>> slumbers still upon the bier."
 
+    dobjFor(Attack) {
+        verify() { logical; }
+        check() {
+            failCheck('You ball up your fists... and then punch yourself.  "Stupid stupid goblin!" you wail.
+                "How could you think of doing such a thing! What would you be without the Queen?
+                Where would you go?  What would you do?  Alone!"
+                \b
+                You whimper at the thought, and so you suck on your fingers for a while.');
+        }
+    }
+
+    dobjFor(AttackWith) {
+        verify() { logical; }
+        check() {
+            failCheck('You stand over the Queen, {the iobj/him} raised in one hand.  Then your vision blurs with tears.
+                \b
+                "I\'m sorry, my Queen! Sometimes I grow so weary that I want it to end.  I want to be 
+                done with you!  And with me.  But what else is there except for service and waiting?  
+                What is there but time?"
+                \b
+                You sniffle to yourself.  There is no answer in the ensuing silence.
+                \b
+                You step back, lowering {the iobj/him} and wiping the tears from your cheeks.');
+        }
+    }
+
+    
     dobjFor(Kiss) {
         check() {
             failCheck('You sigh.  Despite your love, you are no Prince Charming. 
@@ -82,7 +109,13 @@ the_queens_chambers: Room 'The Queen\'s Chambers'
         verify() { 
             logical; 
         }
-    }    
+    }
+    dobjFor(Wake) {
+        verify() { 
+            illogicalNow('This is no ordinary slumber.  
+                The Queen will sleep until the world is ready for goblins to take once more to the Green.'); 
+        }
+    }
 /*
     dobjFor(Touch) {
         action() {
