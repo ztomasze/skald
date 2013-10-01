@@ -189,10 +189,16 @@ skaldServer : object
       // change Exit links to be object references 
       // \v lowercases the next char
       htmlStr = rexReplace([R'%<a +href="North"', R'%<a +href="South"',
-                            R'%<a +href="East"', R'%<a +href="West"'],
+                            R'%<a +href="East"', R'%<a +href="West"',
+                            R'%<a +href="Up"', R'%<a +href="Down"',
+                            R'%<a +href="Northwest"', R'%<a +href="Southwest"',
+                            R'%<a +href="Northeast"', R'%<a +href="Southeast"'],
                             htmlStr, 
                             ['a href="?north"', 'a href="?south"',
-                            'a href="?east"', 'a href="?west"'], 
+                            'a href="?east"', 'a href="?west"',
+                            'a href="?up"', 'a href="?down"',
+                            'a href="?northwest"', 'a href="?southwest"',
+                            'a href="?northeast"', 'a href="?southeast"'], 
                             ReplaceAll);
       
       return htmlStr;
