@@ -3,9 +3,14 @@
 * well.t: all affordances ok?  Any missing?
 * Add links to text with skald.a
 
+* test light, plank
+* add climb verb
+* test outside
+
 Text mode tests:
 * queen: give, kiss; attack, kill
 * pushing things
+* girl: take/drop, 
 
 ? when tracing with mole in inventory, use the blood
 ? Wait behavior with mole: scurries a bit; or eats worms and returns to hole, giving you a little joy.

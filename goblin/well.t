@@ -11,10 +11,10 @@ the_well: Room 'The Pool'
     of the shaft are lined with old <<skald.a(stones)>>, rounded by age.  The stones
     are slick with moisture near the water, but further up the shaft, stray 
     <<skald.a(roots)>> have poked between the stones.\b
-    <<if self.open>><<self.dark ? " Stars glint through the ragged hole at the 
-        top of the shaft." : " A beam of sunlight pours through a ragged hole above,
+    <<if self.open>><<self.dark ? " Stars glint through the <<skald.a(wellHole)>> at the 
+        top of the shaft." : " A beam of sunlight pours through a <<skald.a(wellHole)>> above,
         reflecting off the water below and burning your eyes.">><<else>>
-         Above you is only darkness.<<end>>"
+         Above you is only darkness.<<end>>"  //"
     
     west = the_eastern_tunnels
     up: NoTravelMessage { "There seems no point to that: there is only darkness up there." }
@@ -38,7 +38,7 @@ the_well: Room 'The Pool'
     dobjFor(Climb) remapTo(Up)
 ;
 ++ stones: Decoration 'slick old flag flagstone*flagstones/stone*stones' 'flagstones'
-    "Time has worn the edges of flagstones smooth.  Each one has settled down into its place in the world,
+    "Time has worn smooth the edges of the flagstones.  Each one has settled down into its place in the world,
     like an old man settles into a favorite over-stuffed chair. "
 ;
 
@@ -78,7 +78,9 @@ the_well: Room 'The Pool'
                 the surface of the water.
                 \b
                 You watch the choppy ripples slowly subside on the surface of 
-                the pool. \"Ever your protector, my Queen.  Ever shall we be
+                the pool.
+                \b
+                \"Ever your protector, my Queen.  Ever shall we be
                 safe.\"";
                 rock.moveInto(nil);
                 girl.alive = nil;
@@ -99,7 +101,7 @@ noSunlightForMe : FakeConnector
 ; 
 
 wellHole: Fixture 'ragged well hole' 'ragged hole'
-    "In the <<the_well.dark ? "starlight" : "sunlight">> now pouring through it,
+    "In the <<skald.a(light)>> now pouring through it,
     you can see that the top of the well shaft was actually capped by an ancient
     wooden cover of thick planks.  It must have rotted over the years, and then
     the little girl walked over it and broke through.
@@ -113,35 +115,43 @@ wellHole: Fixture 'ragged well hole' 'ragged hole'
 
 + plank: Fixture 'long wooden plank/cover' 'plank'
     "It is a long wooden plank, still attached to the old well-cover above, 
-    but only barely."
+    but only barely. The hanging plank is out of reach from here, but you could climb 
+    up the shaft to the <<skald.a(wellHole, 'hole')>>."
 ;
 
-girl: Fixture 'human girl/child' 'human child'
-    "It is a skinny wet little girl with dark hair.  The cold water of the pool
-    comes up to her waist. Even from here, you can smell the iron on her: 
++ light: Fixture 'sun star light/sunlight/starlight/tang/air' '<<the_well.dark ? 'starlight' : 'sunlight'>>'
+    "Even more disturbing than the painful light is the sharp tang of the air that comes through the 
+    <<skald.a(wellHole, 'hole')>> with it."
+;
+
+girl: Person 'human girl/child' 'human child'
+    "It is a skinny wet little girl with dark hair.  
+    The cold <<skald.a(water)>> of the pool comes up to her waist. 
+    Even from here, you can smell the iron on her: 
     the taint of the world of Man, which drives all magic underground."
     
+    isHer = true
     initSpecialDesc = "A <<skald.a(girl)>> stands in the water."
     alive = true
     motionDaemon = nil  
-    motion() {  //handles the girl's motion
+    motion() {  //handles the girl's motion (probably should have been done with ActorStates)
         if (me.location == the_well) {
             "\b...\n<<one of>>
-            The girl tries to climb the slick flagstones, but she cannot get a grip.<<or>>
-            The girl jumps, trying to grab a thick root that is sticking out between
+            The <<skald.a(girl, 'girl')>> tries to climb the slick flagstones, but she cannot get a grip.<<or>>
+            The <<skald.a(girl, 'girl')>> jumps, trying to grab a thick root that is sticking out between
             some of the higher flagstones.  The sound of her splashing failure 
             echoes up the shaft of the well.<<or>>
-            The girl stands still for a while, looking around the well.<<or>>
-            The girl wades across to the other side of the pool.<<or>>
-            The girl looks up at the <<the_well.dark ? "starlight" : "sunlight">>
+            The <<skald.a(girl, 'girl')>> stands still for a while, looking around the well.<<or>>
+            The <<skald.a(girl, 'girl')>> wades across to the other side of the pool.<<or>>
+            The <<skald.a(girl, 'girl')>> looks up at the <<the_well.dark ? "starlight" : "sunlight">>
             pouring through the hole above.<<or>>
-            The girl scans the walls of the well for other handholds.  You stand very still as
+            The <<skald.a(girl, 'girl')>> scans the walls of the well for other handholds.  You stand very still as
             her eyes pass over you.  Goblins are not easily detected when they don\'t want 
             to be.<<or>>
-            The girl puts her face in her hands for a while.  You can hear her sniffling.<<or>>
-            The girl yells something you can't make out up at the hole.  Her voice is
+            The <<skald.a(girl, 'girl')>> puts her face in her hands for a while.  You can hear her sniffling.<<or>>
+            The <<skald.a(girl, 'girl')>> yells something you can't make out up at the hole.  Her voice is
             distrubingly loud and alien to you.<<or>>
-            The girl wraps her arms around herself, shivering.
+            The <<skald.a(girl, 'girl')>> wraps her arms around herself, shivering.
             <<half shuffled>>";
         }else {
             "<<one of>>
@@ -158,6 +168,19 @@ girl: Fixture 'human girl/child' 'human child'
         plankEnd.moveInto(the_well);
         plankEnd.moved = nil;
         plank.moveInto(nil);        
+    }
+    
+    dobjFor(Take) {
+        verify() { illogical('She is out of reach, bigger than you, and too heavy to carry around.'); }
+    }
+    dobjFor(Drop) {
+        verify() { illogical('You are not carrying {the dobj/her}.'); }
+    }
+    dobjFor(Attack) {
+        verify() { illogicalNow('She is too far way to reach with your hands.'); }
+    }
+    dobjFor(AttackWith) {
+        verify() { illogicalNow('She is too far way to reach with {the iobj/him}.'); }
     }
 ;
 
