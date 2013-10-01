@@ -66,7 +66,7 @@ gameMain: GameMainDef
     beforeRunsBeforeCheck = nil  // run beforeAction() tests after both verify() and check()
 
     newGame() {
-        //skald.start();
+        skald.start();
         inherited();
     }
 
@@ -151,19 +151,7 @@ DefineIAction(Help)
 VerbRule(Help)
      'help' : HelpAction
 ;
-/*
-DefineTAction(Feed);
-VerbRule(Feed)
-     'feed' singleDobj : FeedAction
-     verbPhrase = 'feed/feeding (what)'
-;
 
-DefineTAction(FeedTo);
-VerbRule(FeedTo)
-     'feed' dobjList 'to' singleIobj : FeedToAction
-     verbPhrase = 'feed/feeding (what) (to what)'
-;
-*/
 DefineTAction(Trace);
 VerbRule(Trace)
      ('trace' | 'retrace' | 'fix' | 'repair') singleDobj : TraceAction
@@ -208,24 +196,10 @@ modify Thing
                 It would be a shame to damage {the iobj/him} while trying to hasten the process.<<end>>');
         }
     }
-/*    
-    dobjFor(Feed) {
-        verify() { 
-            illogical('{The dobj/he} {does}n\'t appear to be hungry right now.');
-        }
+
     }
 
-    iobjFor(FeedTo) {
-        verify() { 
-            illogical('{The dobj/he} {does}n\'t appear to be hungry right now.');
-        }
-    }
-    dobjFor(FeedTo) {
-        verify() { 
-            illogical('{The dobj/he} {is} inedible.');
-        }
-    }
-*/    
+    
     dobjFor(Trace)
     {
       verify()
@@ -234,12 +208,6 @@ modify Thing
       }
     }
 ;
-/*
-modify Food {
-    dobjFor(FeedTo) {
-        verify() { 
-           logical;
-        }
-    }    
-}
-*/
+
+
+

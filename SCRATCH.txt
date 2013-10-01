@@ -26,3 +26,47 @@ User can created windows not guaranteed to be idempotent, with warning.  Basical
 
 Might also need a filter between front and end back end to filter/read stuff from like banner windows and the like.
 
+
+
+FEEDING attempt:
+
+
+DefineTAction(Feed);
+VerbRule(Feed)
+     'feed' singleDobj : FeedAction
+     verbPhrase = 'feed/feeding (what)'
+;
+
+DefineTAction(FeedTo);
+VerbRule(FeedTo)
+     'feed' dobjList 'to' singleIobj : FeedToAction
+     verbPhrase = 'feed/feeding (what) (to what)'
+;
+
+modify Thing
+
+    dobjFor(Feed) {
+        verify() { 
+            illogical('{The dobj/he} {does}n\'t appear to be hungry right now.');
+        }
+    }
+
+    iobjFor(FeedTo) {
+        verify() { 
+            illogical('{The dobj/he} {does}n\'t appear to be hungry right now.');
+        }
+    }
+    dobjFor(FeedTo) {
+        verify() { 
+            illogical('{The dobj/he} {is} inedible.');
+        }
+    }
+
+
+modify Food {
+    dobjFor(FeedTo) {
+        verify() { 
+           logical;
+        }
+    }    
+}

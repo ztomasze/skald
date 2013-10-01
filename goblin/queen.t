@@ -66,7 +66,7 @@ the_queens_chambers: Room 'The Queen\'s Chambers'
     initSpecialDesc = "The <<skald.a(queen)>> slumbers still upon the bier."
 
     dobjFor(Attack) {
-        verify() { logical; }
+        verify() { dangerous; }
         check() {
             failCheck('You ball up your fists... and then punch yourself.  "Stupid stupid goblin!" you wail.
                 "How could you think of doing such a thing! What would you be without the Queen?
@@ -77,7 +77,7 @@ the_queens_chambers: Room 'The Queen\'s Chambers'
     }
 
     dobjFor(AttackWith) {
-        verify() { logical; }
+        verify() { dangerous; }
         check() {
             failCheck('You stand over the Queen, {the iobj/him} raised in one hand.  Then your vision blurs with tears.
                 \b
@@ -105,11 +105,9 @@ the_queens_chambers: Room 'The Queen\'s Chambers'
             illogicalNow('The Queen is in no state to accept your gifts.');
         }
     }
-    dobjFor(ListenTo) {
-        verify() { 
-            logical; 
-        }
-    }
+
+    dobjFor(ListenTo) remapTo(ListenTo, heartbeat)
+    
     dobjFor(Wake) {
         verify() { 
             illogicalNow('This is no ordinary slumber.  
@@ -129,13 +127,13 @@ the_queens_chambers: Room 'The Queen\'s Chambers'
     "The blanket, once luxurious, is now getting tattered and thin in places.  
     You have patched it where you could with mole pelts. ";
 
-++ depression: Decoration 'queen\'s chest/depression' 'chest/depression'
+++ depression: Decoration 'queen\'s chest/depression' 'depression'
     "Despite your best efforts to be gentle when you listen for the Queen's heartbeat, 
     the long repetition has left a very faint head-sized depression in the blanket 
     over the Queen's chest.";
 
 
-++ SimpleNoise 'heart' 'heartbeat'
+++ heartbeat: SimpleNoise 'heart/heartbeat' 'heartbeat'
     desc {
       if (me.deluded) {
         "You take a deep breath, hold it tightly, and lay your head ever so gently
