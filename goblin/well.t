@@ -7,10 +7,10 @@
  */
 the_well: Room 'The Pool'
     "You stand at the mouth of a narrow tunnel that opens into a wide vertical shaft.
-    A few feet below you, the shaft is filled with still water.  The walls
-    of the shaft are lined with old flagstones, rounded by age.  The stones
+    A few feet below you, the shaft is filled with still <<skald.a(water)>>.  The walls
+    of the shaft are lined with old <<skald.a(stones)>>, rounded by age.  The stones
     are slick with moisture near the water, but further up the shaft, stray 
-    roots have poked between the stones.\b
+    <<skald.a(roots)>> have poked between the stones.\b
     <<if self.open>><<self.dark ? " Stars glint through the ragged hole at the 
         top of the shaft." : " A beam of sunlight pours through a ragged hole above,
         reflecting off the water below and burning your eyes.">><<else>>
@@ -33,22 +33,40 @@ the_well: Room 'The Pool'
         
     }
 ;
-+shaft: Fixture 'shaft/wall*walls' 'shaft' 
++ shaft: Fixture 'shaft/wall*walls' 'shaft' 
     dobjFor(Examine) remapTo(Examine, the_well)
     dobjFor(Climb) remapTo(Up)
 ;
-+ Decoration 'water/pool' 'water' 
+++ stones: Decoration 'slick old flag flagstone*flagstones/stone*stones' 'flagstones'
+    "Time has worn the edges of flagstones smooth.  Each one has settled down into its place in the world,
+    like an old man settles into a favorite over-stuffed chair. "
+;
+
+++ roots: Decoration 'root*roots' 'roots'
+    "In the past, you have occasionally found a green root to nibble on here.  Today, the roots 
+    are all old and hard and woody."
+;
+
++ water: Decoration 'water/pool' 'water' 
     "You come here for drinking water sometimes.  The water is too far away for
     you to reach from here.  When you need water, you lower down a rag and then
     squeeze the water out of the rag.  You seem to have mislaid your rag 
-    somewhere... but no matter.  You are not thirsty at the moment."; 
-;
+    somewhere... but no matter.  You are not thirsty at the moment."
+; 
+
 + rock : Heavy 'large rock/stone/boulder' 'large rock'
     "This large rough grey stone once blocked the entrance to the tunnel.
-     It is nearly as big as you are and takes all of your strength to move.
+     It is nearly as big as you are, and it takes all of your strength to move.
      It sits on the edge of the ledge."
-    initSpecialDesc = "A large stone partly hides the entrance to the tunnel."
+    initSpecialDesc = "A <<skald.a(rock, 'large stone')>> partly hides the entrance to the tunnel."
     dobjFor(Push) {
+        verify() {
+            if (girl.location != the_well) {
+                illogicalNow('At the moment, there seems little reason to push the <<skald.a(rock, 'stone')>> 
+                    either into the tunnel entrance behind you or into the <<skald.a(water, 'pool')>> below.');
+            }
+        }
+        
         action() {
             if (girl.location == the_well) {
                 "You quietly get behind the stone and wait... wait until the
@@ -68,8 +86,8 @@ the_well: Room 'The Pool'
                 girl.motionDaemon.removeEvent();
                 the_well.up = noSunlightForMe;
             }else {
-                "At the moment, there seems little reason to push the stone into 
-                either the tunnel entrance behind you or into the pool below.";
+                "At the moment, there seems little reason to push the <<skald.a(rock, 'stone')>> into 
+                either the tunnel entrance behind you or into the <<skald.a(water, 'pool')>> below.";
             }
         }
     }
@@ -87,7 +105,7 @@ wellHole: Fixture 'ragged well hole' 'ragged hole'
     the little girl walked over it and broke through.
     <<if plank.location == wellHole>>
     \b
-    One of the long planks is hanging down into the well, barely attached at the
+    <<skald.a(plank, 'One of the long planks')>> is hanging down into the well, barely attached at the
     other end.<<end>>"
     
     dobjFor(Climb) remapTo(Climb, shaft)
@@ -103,7 +121,7 @@ girl: Fixture 'human girl/child' 'human child'
     comes up to her waist. Even from here, you can smell the iron on her: 
     the taint of the world of Man, which drives all magic underground."
     
-    initSpecialDesc = "A human girl stands in the water."
+    initSpecialDesc = "A <<skald.a(girl)>> stands in the water."
     alive = true
     motionDaemon = nil  
     motion() {  //handles the girl's motion

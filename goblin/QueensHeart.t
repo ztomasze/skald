@@ -49,6 +49,7 @@ skald : SkaldUI
         AttackWithAction -> [3010, 'Kill', 'with'],   //TIAaction
         EatAction -> [3000, 'Eat'],
         ListenToAction -> [3005, 'Listen to'],
+        PushAction -> [3015, 'Push'],
         TraceAction -> [3020, 'Trace'],
 
         TravelDirAction -> [4010, 'Go'],
@@ -197,6 +198,12 @@ modify Thing
         }
     }
 
+    dobjFor(Push)
+    {
+      verify()
+      {
+        illogical('Pushing {that dobj/him} would achieve very little. ');
+      }
     }
 
     

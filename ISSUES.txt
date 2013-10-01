@@ -1,13 +1,18 @@
 ## Queen's Heart
 
-* Attack and AttackWith: works for important objects? queen, girl
+* well.t: all affordances ok?  Any missing?
 * Add links to text with skald.a
 
 Text mode tests:
-* feed
+* queen: give, kiss; attack, kill
+* pushing things
 
-? Wait behavior with mole: scurries a bit; or eats worms and returns to hole, giving you a little joy.
 ? when tracing with mole in inventory, use the blood
+? Wait behavior with mole: scurries a bit; or eats worms and returns to hole, giving you a little joy.
+
+WontFix
+? feed?
+
 
 ## Fate
 
