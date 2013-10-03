@@ -35,16 +35,33 @@ the_well: Room 'The Pool'
 ;
 + shaft: Fixture 'shaft/wall*walls' 'shaft' 
     dobjFor(Examine) remapTo(Examine, the_well)
-    dobjFor(Climb) remapTo(Up)
+    dobjFor(Climb) {
+        verify() {
+            if (!the_well.open) {
+                illogicalNow('There seems no point to that: there is only darkness up there.');
+            }else {
+                logical;
+            }
+        }
+        action() {
+            replaceAction(Up);
+        }
+    }
 ;
 ++ stones: Decoration 'slick old flag flagstone*flagstones/stone*stones' 'flagstones'
     "Time has worn smooth the edges of the flagstones.  Each one has settled down into its place in the world,
     like an old man settles into a favorite over-stuffed chair. "
+    isPlural = true
+    
+    dobjFor(Climb) remapTo(Climb, shaft)
 ;
 
 ++ roots: Decoration 'root*roots' 'roots'
     "In the past, you have occasionally found a green root to nibble on here.  Today, the roots 
     are all old and hard and woody."
+    isPlural = true
+    
+    dobjFor(Climb) remapTo(Climb, shaft)
 ;
 
 + water: Decoration 'water/pool' 'water' 
@@ -108,15 +125,13 @@ wellHole: Fixture 'ragged well hole' 'ragged hole'
     <<if plank.location == wellHole>>
     \b
     <<skald.a(plank, 'One of the long planks')>> is hanging down into the well, barely attached at the
-    other end.<<end>>"
-    
-    dobjFor(Climb) remapTo(Climb, shaft)
+    other end.<<end>>"    
 ;
 
 + plank: Fixture 'long wooden plank/cover' 'plank'
     "It is a long wooden plank, still attached to the old well-cover above, 
     but only barely. The hanging plank is out of reach from here, but you could climb 
-    up the shaft to the <<skald.a(wellHole, 'hole')>>."
+    up the <<skald.a(shaft)>> to the <<skald.a(wellHole, 'hole')>>."
 ;
 
 + light: Fixture 'sun star light/sunlight/starlight/tang/air' '<<the_well.dark ? 'starlight' : 'sunlight'>>'
@@ -186,10 +201,10 @@ girl: Person 'human girl/child' 'human child'
 
 outside : OutdoorRoom 'Outside'
     desc  {"You stand in an empty overgrown field.  There are no living 
-        trees here, but some distance away you see a very wide smooth path.  
+        trees here, but some distance away you see a very wide smooth <<skald.a(path)>>.  
         Standing evenly along the side of the path are a row of branchless
-        poles.  A tight cable runs from pole to pole.  The path and the cable
-        run in a straight line as far as you can see in either direction.
+        <<skald.a(poles)>>.  A tight <<skald.a(cable)>> runs from pole to pole.  
+        The path and the cable run in a straight line as far as you can see in either direction.
         \b
         You feel naked and cold out here.  The very wind carries iron on it, 
         burning your skin.  You can feel it crushing your heart like ice forming
@@ -205,15 +220,15 @@ outside : OutdoorRoom 'Outside'
     
     leavingRoom(traveler) {
         if (girl.location == the_well) {
-            "As you scramble back down through the hole in the well cover, 
+            "As you scramble back down through the <<skald.a(wellHole, 'hole')>> in the well cover, 
             you hear a splintering crack beneath you.  You throw yourself to
             one side and then grab at a root with one hand as you start to slide
             into the well.  Beneath you, a heavy plank tears free
             of the well cover and falls into the water below.
             \b
             Clinging to the side of the well, you peer down.  You can see that 
-            the plank landed on its end in the center of the pool and then 
-            toppled against the far wall.  This formed
+            the <<skald.a(plankEnd, 'plank')>> landed on its end in the center 
+            of the pool and then toppled against the far wall.  This formed
             a steep ramp.  The child is already clambering up the ramp, grabbing
             at roots, and dragging herself up out of the well.
             \b
@@ -231,14 +246,19 @@ outside : OutdoorRoom 'Outside'
     }
 ;
 
-+ Decoration 'road/path' 'path'
-  "The makings of Man are best avoided."
++ path: Decoration 'road/path' 'path'
+  "The wide path appears to be made of a soft, once-melted stone.  
+  A white stripe has been painted along each side of the path, 
+  and a dashed yellow line runs down its center.
+  It is usually a bad idea to cross such lines of power."
 ;    
-+ Decoration 'cable/rope' 'iron cable'
-  "The makings of Man are best avoided."
++ cable: Decoration 'iron cable/rope' 'iron cable'
+  "You shiver at the sight of iron being strung through the very air, 
+  held up by <<skald.a(poles, 'dead tarred branchless trees')>>."
 ;
-+ Decoration 'pole*poles' 'pole'
-  "The makings of Man are best avoided."    
++ poles: Decoration 'pole*poles' 'poles'
+  "The makings of Man are best avoided."
+    isPlural = true
 ;
 
 + plankEnd : Fixture 'end long plank/end' 'plank'
@@ -250,18 +270,21 @@ outside : OutdoorRoom 'Outside'
     while the other end leans on the far wall.<<end>>"
 
     initSpecialDesc = "<<if me.location == outside>>
-        You can see the end of a long plank that hangs 
+        You can see the end of a long <<skald.a(plankEnd)>> that hangs 
         down into the well.<<else>>
-        A heavy plank, partially submerged in the water, leans against the far wall.<<end>>"
+        A heavy <<skald.a(plankEnd)>>, partially submerged in the water, leans against the far wall.<<end>>"
     
     cannotTakeMsg = 'The plank is too long and heavy to carry, but you could push it.'
     dobjFor(Push) {
-        verify() { return nil; }
-        action() {
+        verify() { 
             if (self.location == the_well) {
-                "The plank is too far way to reach.";
+                illogicalNow('The plank is too far way to reach.');
             }else {
-            "You push the end of the plank.  The iron nails groan a little and the 
+                logical;
+            }
+        }
+        action() {            
+            "You push on the end of the plank.  The iron nails groan a little and the 
             plank starts to sway back and forth.  You can hear the girl move
             in the water below you.  You push a little harder and the nails pop free.
             The plank drops into the water with a splash.
@@ -277,14 +300,13 @@ outside : OutdoorRoom 'Outside'
             outside world.
             \b
             Suddenly, she turns and runs.  She stops when she gets to the
-            wide path and turns back to look at you.  Tentatively, she waves.
+            wide path.  She looks back at you.  Tentatively, she waves.
             Then she turns and runs on before you can decide how to reply.
             \b
             Oddly, your sorrow feels lighter than it has in a long long time.";
             sorrow.weight -= 2;
             
             girl.begone();
-            }
         }
     }
 ;
