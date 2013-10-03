@@ -163,7 +163,7 @@ the_queens_chambers: Room 'The Queen\'s Chambers'
         \b
         Quivering, you take a deep breath, hold it, and listen again.  And now
         you feel it once more, faintly, that beating you know so well, the beating
-        in your ears, the beating of the Queen's heart.
+        in your own ears, the beating of the Queen's heart.
         \b
         Puzzled, you exhale.  The beating stops.
         \b
