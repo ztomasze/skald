@@ -197,6 +197,9 @@ girl: Person 'human girl/child' 'human child'
     dobjFor(AttackWith) {
         verify() { illogicalNow('She is too far way to reach with {the iobj/him}.'); }
     }
+    dobjFor(TalkTo) {
+        check() { failCheck('You dare not reveal yourself to such a dangerous, destructive creature.'); }
+    }
 ;
 
 outside : OutdoorRoom 'Outside'

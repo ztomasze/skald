@@ -32,9 +32,17 @@ the_queens_chambers: Room 'The Queen\'s Chambers'
     dobjFor(Trace) {
         verify() { logical; }
         action() {
-            "You trace your fingers over the lines of the <<skald.a(mandala)>>, murmuring
-            the incantations written there from memory.  This does not make the
-            Ward any stronger, but it calms you a little.";
+            if (mole.location == me) {
+                "You drive your fingers into the limp body of the <<skald.a(mole)>>, coating
+                them with its cooling, tingling blood.  You trace the lines of the
+                <<skald.a(mandala)>>, murmuring the well-practice incantations.  You feel
+                the mandala growing warmer and stronger, protecting the Queen from the 
+                passage of time. It calms you to know that she is safe.";
+            }else {
+                "You trace your fingers over the lines of the <<skald.a(mandala)>>, murmuring
+                the incantations written there from memory.  This does not make the
+                Ward any stronger, but it calms you a little.";
+            }
             if (knot.tightness > 0) {
                  knot.tightness = knot.tightness - 2;
                 if (knot.tightness <= 0) {
@@ -114,13 +122,12 @@ the_queens_chambers: Room 'The Queen\'s Chambers'
                 The Queen will sleep until the world is ready for goblins to take once more to the Green.'); 
         }
     }
-/*
-    dobjFor(Touch) {
+
+    dobjFor(Feel) {
         action() {
             "You lay your hand upon the blanket at the edge of the bier for a while.";
         }
-    }
- */    
+    }    
 ;
 
 + blanket: Decoration 'fur blanket' 'blanket'
