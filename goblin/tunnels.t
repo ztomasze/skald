@@ -18,10 +18,10 @@ the_eastern_tunnels: Room 'The Eastern Tunnels'
     the minor tunnels eventually bring you back here again. '
     
     leavingRoom(traveler) {
-        if (mole.alive && mole.inHole) {
+        if (mole.alive) {
             mole.moveInto(nil);
             mole.inHole = nil;
-            "The mole scurries far back into his hole and disappears.\n";
+            "The mole scurries <<if mole.inHole>>far<<end>> back into his hole and disappears.\n";
         }
     }
 ;
@@ -46,7 +46,7 @@ the_eastern_tunnels: Room 'The Eastern Tunnels'
     alive = true
     inHole = true
     taken = nil
-    initSpecialDesc = "A <<skald.a(mole)>> is poking the tip of his nose out of a <<skald.a(hole)>> ."
+    initSpecialDesc = "A <<skald.a(mole)>> is poking the tip of his nose out of a <<skald.a(hole)>>."
     initDesc = "All you can see of the <<skald.a(mole)>>  at the moment is the pink tip of his
         twitching nose."
     
@@ -62,7 +62,23 @@ the_eastern_tunnels: Room 'The Eastern Tunnels'
                     to be.\b
                     The <<skald.a(mole)>> pushes its plump body out of the hole and 
                     hurries over to the <<skald.a(worms, 'earthworms')>>.');
-        }        
+        }
+        if (gActionIs(Wait) && self.alive && !self.inHole && worms.location == self.location) {
+            inherited;
+            self.moveInto(nil);
+            worms.moveInto(nil);
+            sorrow.weight--;
+            extraReport('\bThe earthworms gradually start to disperse.  The 
+                near-sighted mole waddles after each one, nose to the soil, 
+                and slurps it up. 
+                \b
+                Soon, the worms are gone.  The mole peers around,
+                smacking its lips, and gives itself a shake. Then it waddles back
+                to its hole, hefts its plump bottom up over the edge, and disappears.
+                \b
+                You give a little chuckle in the darknes. Your sorrow does not feel quite so heavy.');            
+            
+        }            
     }
     
     beforeAction() {
@@ -101,7 +117,7 @@ the_eastern_tunnels: Room 'The Eastern Tunnels'
         }
         action() {
             if (self.inHole) {
-                "You hear the <<skald.a(mole)>>  scratching and rooting in the sandy soil.";
+                "You hear the <<skald.a(mole)>> scratching and rooting in the sandy soil.";
             }else {
                 if (self.alive) {
                     "The <<skald.a(mole)>>  is sniffing and snuffling and occasionally grunting.";

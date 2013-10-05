@@ -1,18 +1,10 @@
 ## Queen's Heart
 
-* well.t: all affordances ok?  Any missing?
-* Add links to text with skald.a
 
-* test outside again
-* test endings: rock, up+push, up+down (with up after each)
+* WTF: "far" back into hole if mole is already in hole
 
 Text mode tests:
-* talk to girl
-* interact with cable/poles/pash
 
-? when tracing with mole in inventory, use the blood
-? Wait behavior with mole: scurries a bit; or eats worms and returns to hole, giving you a little joy.
-  * see how light sorrow can get
 
 WontFix
 ? feed?

@@ -26,13 +26,14 @@ me: Actor
     "Sometimes your <<skald.a(sorrow)>> is a dark void in your chest, sometimes it
     is a gray weight between your shoulders, and sometimes it is a
     languid emptiness everywhere. At the moment, it is 
-    <<if self.weight <= 0>> not so heavy.
-    <<else if self.weight == 1>> a heavy burden.
-    <<else if self.weight == 2>> very heavy.
+    <<if self.weight <= 0>> as light as a round riverbed stone.
+    <<else if self.weight == 1>> not so heavy.
+    <<else if self.weight == 2>> a heavy burden.
+    <<else if self.weight == 3>> very heavy.
     <<else>> a crushing weight.<<end>>"
     
     isQualifiedName = true
-    weight = 1
+    weight = 2
     
     dobjFor(Drop) {
         verify() {illogicalNow('If only it were that easy to be free of your <<skald.a(sorrow)>>.');}
