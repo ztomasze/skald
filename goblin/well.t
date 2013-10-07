@@ -200,6 +200,12 @@ girl: Person 'human girl/child' 'human child'
     dobjFor(TalkTo) {
         check() { failCheck('You dare not reveal yourself to such a dangerous, destructive creature.'); }
     }
+    iobjFor(ThrowAt) {
+        check() {
+            failCheck('That would reveal your presence, which could go badly for you.');
+        }
+    }
+
 ;
 
 outside : OutdoorRoom 'Outside'

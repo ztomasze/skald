@@ -1,31 +1,25 @@
 ## Queen's Heart
 
-
-* WTF: "far" back into hole if mole is already in hole
-
-Text mode tests:
-
-
 WontFix
-? feed?
-
++ feed?
 
 ## Fate
 
-? Add Enter as verb, so can move from locations through Objects menus
+WontFix:
++ Not every illogical (currently impossible) action is grayed out  (again, a bit more customizing would be req on TADS side; subtlty regarding illogicalness and overriding default library: removing clothes)
++ Add Enter as verb, so can move from locations through Objects menus
   * Should add Exit too, then.
   * Some weird Enter behavior to be fixed: can try to Enter street from within phone booth, but get weird response and no result
   * Will require some tweaking to drop doors from the list.
 
-WontFix:
-+ Inventory listings don't get linked
-+ Not every mention is linked.  This is due to authoring.  Highlight same color not yet implemented.
-+ Not every illogical (currently impossible) action is grayed out  (again, a bit more customizing would be req on TADS side; subtlty regarding illogicalness and overriding default library: removing clothes)
-
-
 ## TADS-Skald
 
 * on invalid command (ie, an unknown adjective used), no reponse.  But error message appears at start of next turn.
+
+WontFix (for now)
++ Inventory listings don't get linked
++ Not every mention is linked.  This is due to authoring.  Highlight same color not yet implemented.
+
 
 ## GWT-Skald
 

@@ -127,7 +127,12 @@ the_queens_chambers: Room 'The Queen\'s Chambers'
         action() {
             "You lay your hand upon the blanket at the edge of the bier for a while.";
         }
-    }    
+    }
+    iobjFor(ThrowAt) {
+        check() {
+            failCheck('That would be disrespectful and might hurt the Queen.');
+        }
+    }
 ;
 
 + blanket: Decoration 'fur blanket' 'blanket'

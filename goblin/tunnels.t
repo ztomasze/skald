@@ -19,9 +19,9 @@ the_eastern_tunnels: Room 'The Eastern Tunnels'
     
     leavingRoom(traveler) {
         if (mole.alive) {
+            "The mole scurries <<if mole.inHole>>far<<end>> back into his hole and disappears.\n";
             mole.moveInto(nil);
             mole.inHole = nil;
-            "The mole scurries <<if mole.inHole>>far<<end>> back into his hole and disappears.\n";
         }
     }
 ;
@@ -69,7 +69,7 @@ the_eastern_tunnels: Room 'The Eastern Tunnels'
             worms.moveInto(nil);
             sorrow.weight--;
             extraReport('\bThe earthworms gradually start to disperse.  The 
-                near-sighted mole waddles after each one, nose to the soil, 
+                near-sighted mole waddles after each worm, nose to the soil, 
                 and slurps it up. 
                 \b
                 Soon, the worms are gone.  The mole peers around,
@@ -168,6 +168,12 @@ the_eastern_tunnels: Room 'The Eastern Tunnels'
             Nevermind. Good for the Ward, you'll be.\"
             \b
             The <<skald.a(mole)>> does not answer.";            
+        }
+    }
+    
+    iobjFor(ThrowAt) {
+        check() {
+            failCheck('That would reveal your presence, which would be unfortunate if you miss.');
         }
     }
 ;
