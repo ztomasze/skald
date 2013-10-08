@@ -67,8 +67,24 @@ gameMain: GameMainDef
     initialPlayerChar = me
     beforeRunsBeforeCheck = nil  // run beforeAction() tests after both verify() and check()
 
+    
     newGame() {
-        //skald.start();
+        // Command line args:
+        // [1] = name of program
+        // [2] = 'skald'/'web' or 'text' (text is default on any other value)
+        // [3] = ID.  If given, will log commands to a file with this prefix. 
+        //       If in webmode and ID is parsable as an integer, will use this as port number.
+        //
+        local progName = libGlobal.commandLineArgs[1];
+        local mode = (libGlobal.commandLineArgs.length() > 1) ? libGlobal.commandLineArgs[2] : nil;
+        local id = (libGlobal.commandLineArgs.length() > 2) ? libGlobal.commandLineArgs[3] : nil;
+        if (mode && mode == 'web' || mode == 'skald') {
+            skald.start();
+        // Options = Transcript: all in/out, Command: only cmd-line in, Script: all input
+//            setLogFile(id + progName + '.web.log', LogTypeTranscript);
+        }else {
+//            setLogFile(id + progName + '.log', LogTypeScript);
+        }
         inherited();
     }
 
