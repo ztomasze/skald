@@ -18,7 +18,7 @@ the_eastern_tunnels: Room 'The Eastern Tunnels'
     the minor tunnels eventually bring you back here again. '
     
     leavingRoom(traveler) {
-        if (mole.alive) {
+        if (mole.alive && (mole.location == the_eastern_tunnels || mole.location == hole)) {
             "The mole scurries <<if mole.inHole>>far<<end>> back into his hole and disappears.\n";
             mole.moveInto(nil);
             mole.inHole = nil;
