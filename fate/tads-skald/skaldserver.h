@@ -308,11 +308,14 @@ skaldServer : object
     
     /*
      *   Kill the server.  This will direct all future output to console again.
+     *   If server is not active, can be safely called with no effect.
      */
     shutdown() {
-        self.server.shutdown();
-        self.server = nil;
-        if (self.LOG_LEVEL >= 1) "HTTP Server shutdown.\n";
+        if (self.server) {
+            self.server.shutdown();
+            self.server = nil;
+            if (self.LOG_LEVEL >= 1) "HTTP Server shutdown.\n";
+        }
     }
 ;
    

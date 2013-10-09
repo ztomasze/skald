@@ -59,9 +59,8 @@
  *      gameMain: GameMainDef
  *
  *          newGame() {
- *            skald.start();
- *            inherited();   //or other newGame content
- *            skald.shutdown();
+ *            skald.start();  //or: skald.start(libGlobal.commandLineArgs);
+ *            inherited();    //or other newGame content
  *          }
  *    
  *          //...other gameMain content, such as setting initialPlayerChar...
@@ -148,10 +147,55 @@ class SkaldUI: object
     
     /* 
      *   Starts the server and performs other setup work.
+     *
+     *   Without arguments, simply starts skald on the default port.
+     *   You can set skaldServer.port before calling skald.start() to change
+     *   this.
+     *
+     *   The optional args parameter is intended for default handling of 
+     *   command line args. In this case, you can call: 
+     *       
+     *          skald.start(libGlobal.commandLineArgs);
+     *
+     *   from gameMain.newGame().  Behavior various depending on the 
+     *   args given:
+     *
+     *   [1] = name of program
+     *   [2] = 'skald'/'web' or 'text' (text is default behavior on any other value or no value)
+     *   [3] = ID.  If given, will log commands to a file with this prefix- before program name. 
+     *         If in webmode and ID is parsable as an integer, will also use this as port number.
+     *         (Side-effect: Impossible to run on non-default port without logging.)
      */
-    start() {
-        skaldServer.start();
-        exitsMode.inRoomDesc = self.EXITS_LOOK;
+    start(args?) {
+
+        if (args) {
+            local progName = (args.length() > 0) ? args[1] : nil;  //safety check for not-real cmd line args
+            local mode = (args.length() > 1) ? args[2] : nil;
+            local id = (args.length() > 2) ? args[3] : nil;
+            local logName =  (id) ? ('' + id + '-' + progName) : nil;
+
+            if (mode && mode == 'web' || mode == 'skald') {
+                // web mode
+                if (id) {
+                    local idAsPort = toInteger(id);
+                    if (idAsPort) skaldServer.port = idAsPort;
+                }
+                skald.start();  // this time without processed args
+                // Options = Transcript: all in/out, Command: only cmd-line in, Script: all input
+                if (logName) {
+                    setLogFile(logName + '.web.log', LogTypeTranscript);
+                }
+            }else {
+                // text mode
+                if (logName) {
+                    setLogFile(logName + '.log', LogTypeScript);
+                }
+            }
+        }else {            
+            // normal default start
+            skaldServer.start();
+            exitsMode.inRoomDesc = self.EXITS_LOOK;
+        }
     }
     
     /*

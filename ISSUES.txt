@@ -1,3 +1,12 @@
+## Delivery
+
+* timestamps into log files (start and end, optionally for each command)
+* both log formats -> replayable -> recorded transcript
+* timeout works
+* install: port works and reachable, timeout still works
+* delivery script
+* deploy
+
 ## Queen's Heart
 
 WontFix
