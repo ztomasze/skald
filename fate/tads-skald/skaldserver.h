@@ -50,38 +50,7 @@ replace aioSay(txt) {
 replace checkHtmlMode() {
   return true;
 }
-
-//#define AHREF_Command 0x0004
-/* 
- *   Modified to add required ? in front of link by default. 
- *   If not href is not a command, override flags.
- *   Also, link has no javascript embedded.
- */
-/*
-replace aHref(href, txt?, title?, flags=AHREF_Command) {
-
-    if (skaldServer.server) {
-        // must be in HTML mode
-        // (code based on browser.t's aHref)
-        local props = '';
-        if (flags & AHREF_Plain)
-            props += 'class="plain" ';
-
-        local str = '<a <<props>> href="';
-        str += '<<flags & AHREF_Command ? '?' : ''>>';
-        str += href.findReplace('"', '%22') + '"';
-        str += (title != nil 
-                ? ' title="' + title.findReplace('"', '&#34;') + '"' 
-                : '');
-        str += '><<txt != nil ? '<.a>' + txt + '<./a>' : ''>></a>';
-        return str;
-    }else {        
-        //plain text mode
-        return txt;
-    }
-}
-*/
-    
+   
 /*
  *   TADS is fairly complicated in terms of turn-taking.  Actors are
  *   Schedulable, and more that one may need to be managed. The main game loop
@@ -136,7 +105,7 @@ skaldServer : object
     port = 49000
     quit = nil      //once true, the server will shutdown next chance it has
     connectionTimeout = nil  //if no UI requests received after this time, 
-                               //shuts down the server.  Set to nil to never timeout.
+                             //shuts down the server.  Set to nil to never timeout.
     
     /*
      *   What level of detail to print to stdout.  The steps are cumulative 
@@ -164,8 +133,6 @@ skaldServer : object
     
     /* Start the server. */
     start() {
-//        local now = new Date();
-//        local timestamp = now.formatDate('%Y-%m-%dT%H:%M:%S');
         if (self.LOG_LEVEL >= 1) "HTTP Server starting... ";
         self.server = new HTTPServer(self.hostname, self.port); 
         if (self.LOG_LEVEL >= 1) "listening on port <<server.getPortNum()>>\n";
@@ -203,6 +170,15 @@ skaldServer : object
       
       return htmlStr;
     }
+    
+    /*
+     *   Return a String timestamp of the current time in a standard format.
+     */
+    getTimestamp() {
+        local now = new Date();
+        return now.formatDate('[%Y-%m-%d %H:%M:%S]');
+    }
+
      
     /*
      *   Wraps the given str in the normal Skald header/footer and sends it as a
@@ -253,7 +229,7 @@ skaldServer : object
 
         for (;;) {  //until we get a cmd
             
-            local evt = getNetEvent(); //self.connectionTimeout);  //timeout in ms
+            local evt = getNetEvent(self.connectionTimeout);  //timeout in ms
             if (evt.evType == NetEvTimeout) {
                 if (self.LOG_LEVEL >= 1) {
                     tadsSay('HTTP Server connection timed out (' + self.connectionTimeout + 

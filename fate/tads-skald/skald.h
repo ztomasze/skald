@@ -181,14 +181,14 @@ class SkaldUI: object
                     if (idAsPort) skaldServer.port = idAsPort;
                 }
                 skald.start();  // this time without processed args
-                // Options = Transcript: all in/out, Command: only cmd-line in, Script: all input
+                // LogTypes = Transcript: all in/out, Command: only cmd-line in, Script: all input
                 if (logName) {
                     setLogFile(logName + '.web.log', LogTypeTranscript);
                 }
             }else {
                 // text mode
                 if (logName) {
-                    setLogFile(logName + '.log', LogTypeScript);
+                    setLogFile(logName + '.log', LogTypeTranscript);
                 }
             }
         }else {            

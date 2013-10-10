@@ -69,7 +69,7 @@ gameMain: GameMainDef
 
     
     newGame() {
-        skald.start(libGlobal.commandLineArgs);
+        //skald.start(); //skald.start(libGlobal.commandLineArgs);
         inherited();
     }
 
