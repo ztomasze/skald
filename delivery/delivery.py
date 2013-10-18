@@ -30,7 +30,7 @@ import random
 FILES_DIR = '../htdocs/skald'
 
 # Fully-qualified domain name and directory (ending in slash) of where
-# demeter files are being served from (particularly the .jnlp file)
+# game files are being served from
 FILES_HREF = 'http://localhost/skald/'
 
 # The directory to store saved files and logs into.  Path given should

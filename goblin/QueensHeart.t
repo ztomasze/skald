@@ -69,7 +69,9 @@ gameMain: GameMainDef
 
     
     newGame() {
-        //skald.start(); //skald.start(libGlobal.commandLineArgs);
+        skaldServer.connectionTimeout = (5 * 60 * 1000); // 5 min
+//        skald.start();
+        skald.start(libGlobal.commandLineArgs);
         inherited();
     }
 
