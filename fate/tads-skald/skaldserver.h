@@ -101,7 +101,10 @@ skaldServer : object
     server = nil    //should be activated by calling skaldServer.start()
     buffer = nil
     pendingRequest = nil  //a previous (cmd) request that we need to send output for
-    hostname = getLocalIP() //getLaunchHostAddr()  //or getLocalIP()getLaunchHostAddr()
+    // Whether the server's hostname should be initialized 
+    ipmode = true
+    // XXX.wtf: Only works when done here, not when performed in start()
+    hostname = (self.ipmode) ? getLocalIP() : getLaunchHostAddr()  //getLocalIP() or getLaunchHostAddr()
     port = 49000
     quit = nil      //once true, the server will shutdown next chance it has
     connectionTimeout = nil  //if no UI requests received after this time, 
@@ -135,7 +138,9 @@ skaldServer : object
     start() {
         if (self.LOG_LEVEL >= 1) "HTTP Server starting... ";
         self.server = new HTTPServer(self.hostname, self.port); 
-        if (self.LOG_LEVEL >= 1) "listening on port <<server.getPortNum()>>\n";
+        if (self.LOG_LEVEL >= 1) "listening as <<server.getAddress()>>:<<server.getPortNum()>>
+            (IP: <<server.getIPAddress()>>)\n";
+
         buffer = new StringBuffer();
         quit = nil;
     }
@@ -276,7 +281,7 @@ skaldServer : object
                         if (self.LOG_LEVEL >= 4) tadsSay('GET converted: / -> /index.html\n');
                     }
                     query[1] = self.ROOT + query[1];
-                    webResources.processRequest(req, query);
+                    skaldWebResources.processRequest(req, query);
                 }
             }//end HTTP request
         }//end for
@@ -298,6 +303,7 @@ skaldServer : object
   
 /* ------------------------------------------------------------------------ */
 //FROM TADS's webui.t:
+// Skald prepended to avoid conflict with existing WebUI library if both compiled in
 
 /*
  *   A WebResource is a virtual file accessible via the HTTP server.  Each
@@ -307,7 +313,7 @@ skaldServer : object
  *   method, which the server invokes to answer the request when the path
  *   is matched.
  */
-class WebResource: object
+class SkaldWebResource: object
     /*
      *   The virtual path to the resource.  This is the apparent URL path
      *   to this resource, as seen by the client.
@@ -489,7 +495,7 @@ class WebResource: object
  *   we don't want to impose any assumptions about how your resources are
  *   organized.
  */
-class WebResourceResFile: WebResource
+class SkaldWebResourceResFile: SkaldWebResource
     /*
      *   Match a request.  A resource file resource matches if we match the
      *   virtual path setting for the resource, and the requested resource
@@ -599,11 +605,7 @@ class WebResourceResFile: WebResource
  *   library resources are in the /htdocs resource folder.  This exposes
  *   everything in that folder as a downloadable Web object.
  */
-webResources: WebResourceResFile
+skaldWebResources: SkaldWebResourceResFile
     vpath = static new RexPattern('/htdocs')
 ;
-
-// XXX: It'd be nice to have a containingFolder variable so we could hide
-// the initial /skald/ part of the URL from all queries. Nicer, but doesn't 
-// change basic functionality, so will come back to this...  maybe.
 

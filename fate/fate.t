@@ -1174,23 +1174,13 @@ gameMain: GameMainDef
     initialPlayerChar = me
 
     newGame() {
-        // optional command line args: port number
-        if (libGlobal.commandLineArgs.length() > 1) {
-            skaldServer.port = toInteger(libGlobal.commandLineArgs[2]);
-        }
-        if (libGlobal.commandLineArgs.length() > 2) {
-            skaldServer.hostname = libGlobal.commandLineArgs[3];
-        }
-        //CONT:
-        // Document hostname requirements....
-
-
+        
         skald.start();
+        //skald.start(libGlobal.commandLineArgs);
         //XXX: for now, score links cause problems in SkaldUI, so turn off
         libGlobal.scoreObj.scoreNotify.isOn = nil;
 
         inherited();
-        skald.shutdown();
     }
 
 
