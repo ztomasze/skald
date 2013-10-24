@@ -101,10 +101,11 @@ skaldServer : object
     server = nil    //should be activated by calling skaldServer.start()
     buffer = nil
     pendingRequest = nil  //a previous (cmd) request that we need to send output for
-    // Whether the server's hostname should be initialized 
-    ipmode = true
-    // XXX.wtf: Only works when done here, not when performed in start()
-    hostname = (self.ipmode) ? getLocalIP() : getLaunchHostAddr()  //getLocalIP() or getLaunchHostAddr()
+    // XXX: getLaunchHostAddr() generally not useful.
+    // Only seem to work when initialized here, not in start()
+    // If server does not reply to CMDs, try setting skaldServer.hostname before you call
+    // start().
+    hostname = getLocalIP()
     port = 49000
     quit = nil      //once true, the server will shutdown next chance it has
     connectionTimeout = nil  //if no UI requests received after this time, 
