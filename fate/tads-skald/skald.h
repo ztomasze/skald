@@ -161,7 +161,7 @@ class SkaldUI: object
      *   args given:
      *
      *   [1] = name of program
-     *   [2] = 'skald'/'web' or 'text' (text is default behavior on any other value or no value)
+     *   [2] = 'skald' or some other value, such as 'text'
      *   [3] = ID.  If given, will log commands to a file with this prefix- before program name. 
      *         If in webmode and ID is parsable as an integer, will also use this as port number.
      *         (Side-effect: Impossible to run on non-default port without logging.)
@@ -174,8 +174,8 @@ class SkaldUI: object
             local id = (args.length() > 2) ? args[3] : nil;
             local logName =  (id) ? ('' + id + '-' + progName) : nil;
 
-            if (mode && mode == 'web' || mode == 'skald') {
-                // web mode
+            if (mode && mode == 'skald') {
+                // skald mode
                 if (id) {
                     local idAsPort = toInteger(id);
                     if (idAsPort) skaldServer.port = idAsPort;

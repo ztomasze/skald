@@ -39,17 +39,14 @@
  */
  
 /* Write to server buffer if server is running, else to normal tadsSay fn.*/
-replace aioSay(txt) {
+modify aioSay(txt) {
     if (skaldServer.server && skaldServer.buffer) {
         skaldServer.buffer.append(txt);
     }else {
-        tadsSay(txt); 
+        replaced(txt);  //tadsSay in text mode, but something else for webui
     }
 }
 
-replace checkHtmlMode() {
-  return true;
-}
    
 /*
  *   TADS is fairly complicated in terms of turn-taking.  Actors are
@@ -108,7 +105,7 @@ skaldServer : object
     hostname = getLocalIP()
     port = 49000
     quit = nil      //once true, the server will shutdown next chance it has
-    connectionTimeout = nil  //if no UI requests received after this time, 
+    connectionTimeout = nil  //if no UI requests received after this time in ms, 
                              //shuts down the server.  Set to nil to never timeout.
     
     /*

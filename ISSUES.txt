@@ -9,6 +9,7 @@
 * timeout works
 * install: port works and reachable, timeout still works
 * delivery script
+  * ISSUE: connect to webui  -> replace browser.t's initUI
 * deploy
 
 ## Queen's Heart
