@@ -17,6 +17,9 @@
 # comment marked "##sources" below, but other comments might be
 # discarded, the formatting might be changed, and some option
 # settings might be modified.
+#
+#-lib adv3/adv3 -> adv3/adv3web
+#-lib webui
 
 -pre
 -D LANGUAGE=en_us

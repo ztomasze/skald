@@ -28,6 +28,17 @@ WontFix:
 
 ## TADS-Skald
 
+* Cannot compile a single game that will run in either WebUI or Skald mode.
+  They each tap in fairly deeply to the startup and output processes in an incompatible way.
+  (Future development might resolve this to handle each pain point differently
+  depending on the current mode.)
+  However, can easily compile for one mode or the other.
+  If you compile for either WebUI or text mode, just don't call skald.start()
+
+  Can I compile a game that will run in different modes--skald, WebUI, or text-mode--based on a command line arg?
+  
+  text mode and Skald are compatible at.  WebUI and Skald are not.
+
 * Starting server
   * Must specify network security level of 0.  (-ns0 in t3run, -N0 for Frob)
   * Recommend you run with plain output on server side (-plain in t3run, -i plain for Frob)
@@ -38,6 +49,7 @@ WontFix:
     * Running locally?  Need to use getLocalIP().  This seems to work even if you are connecting using 'localhost' in your browser.  (TADS HTML will grab 127.0.01, but t3run will grab your external IP.  But still work as if 'localhost') (getLaunchHostAddr() does not work locally.)
     * Works for me on deployment.  
     * If server does not start or does not reply to CMDs, try manually setting skaldServer.hostname with your server's domain name before you call skald.start()
+
 
 
 * on invalid command (ie, an unknown adjective used), no reponse.  But error message appears at start of next turn.
