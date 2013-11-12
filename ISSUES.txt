@@ -1,15 +1,12 @@
 ## Delivery
 
-* timestamps into log files (start and end, optionally for each command)
-  * No, track this in delivery script: start page -> next Page
+* timestamps into log files  
   * start time (consent start), first play time, (review start), second play time, (review start)
   * times for "closed window" quit
   * webUI in all of this?
-* both log formats -> replayable -> recorded transcript
-* timeout works
-* install: port works and reachable, timeout still works
-* delivery script
-  * ISSUE: connect to webui  -> replace browser.t's initUI
+* logging for both
+* log formats -> replayable -> recorded transcript
+* timeout works but not too low for both
 * deploy
 
 ## Queen's Heart

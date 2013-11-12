@@ -6,31 +6,29 @@
  *   Created: 31 Oct 2013
  */
 
+// true = TADS's default WebUI, nil = Skald
+// If true, must compile along with adv3web and webui.t.
+//#define WEB_UI_MODE nil  -- define in .t3m file
 
-// Set this to true if using TADS's default WebUI.
-// This requires compiling with adv3web and webui.t.
-// If nil, then will run in Skald mode instead.
-WEB_UI_MODE = true 
-
-
+#ifdef WEB_UI_MODE
 replace initUI() {
     startup.init();
-    if (WEB_UI_MODE) {
-        // from WebUI's browser.t:  (changed to used assigned port)
-        local srv = browserGlobals.httpServer = new HTTPServer(
-            getLaunchHostAddr(), startup.port, 1024*1024);
-        webSession.connectUI(srv);
-    }
+    // from WebUI's browser.t:  (changed to used assigned port)
+    local srv = browserGlobals.httpServer = new HTTPServer(
+        getLaunchHostAddr(), startup.port, 1024*1024);
+    webSession.connectUI(srv);
 }
+#endif
 
 /*
  *   The game startup preprocessor that does the actual configuring.
  */
 startup : object
-
-    // defaults
-    port = nil      // system assigned
     
+    // defaults
+    port = nil      // mil = system assigned
+    logName = nil
+   
     
     /*
      *   Processes command line arguments to override the default instance
@@ -46,9 +44,9 @@ startup : object
     init() {
         local args = libGlobal.commandLineArgs;
         local progName = args[1];
-        // will be nil if arg is not an int
-        local self.port = (args.length() > 2) ? toInteger(args[3]) : self.port;
-        local logName =  (self.port) ? ('' + self.port + '-' + progName) : nil;
+        // will be nil if arg is not an int        
+        self.port = (args.length() > 1) ? toInteger(args[2]) : self.port;
+        self.logName =  (self.port) ? ('' + self.port + '-' + progName) : nil;
     }
     
     /*
@@ -58,19 +56,20 @@ startup : object
      *   Calls init before anything else.
      */
     start() {
-        self.init()
-        if (WEB_UI_MODE) {
-            if (logName) {
-                setLogFile(logName + 'webui.log', LogTypeTranscript);
+        self.init();
+        #ifdef WEB_UI_MODE
+            if (self.logName) {
+                setLogFile(self.logName + '.log', LogTypeScript);
             }
-        }else {
+        #else
             // skald mode
             // LogTypes = Transcript: all in/out, Command: only cmd-line in, Script: all input
-            if (logName) {
-                setLogFile(logName + '.skald.log', LogTypeTranscript);
-            }            
-            skaldServer.port = self.port
+            if (self.logName) {
+                setLogFile(self.logName + '.log', LogTypeTranscript);
+            }
+            skaldServer.connectionTimeout = 1 * (60 * 1000);  // ms to minutes 
+            skaldServer.port = self.port;
             skald.start();  // this time without processed args
-        }        
+        #endif        
     }
 ;
