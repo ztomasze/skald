@@ -11,6 +11,7 @@
 //#define WEB_UI_MODE nil  -- define in .t3m file
 
 #ifdef WEB_UI_MODE
+#define TEXT_MODE
 replace initUI() {
     startup.init();
     // from WebUI's browser.t:  (changed to used assigned port)
@@ -57,7 +58,7 @@ startup : object
      */
     start() {
         self.init();
-        #ifdef WEB_UI_MODE
+        #ifdef TEXT_MODE
             if (self.logName) {
                 setLogFile(self.logName + '.log', LogTypeScript);
             }
@@ -67,9 +68,9 @@ startup : object
             if (self.logName) {
                 setLogFile(self.logName + '.log', LogTypeTranscript);
             }
-            skaldServer.connectionTimeout = 1 * (60 * 1000);  // ms to minutes 
+            skaldServer.connectionTimeout = 15 * (60 * 1000);  // ms to minutes 
             skaldServer.port = self.port;
             skald.start();  // this time without processed args
-        #endif        
+        #endif
     }
 ;
