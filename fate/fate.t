@@ -45,6 +45,7 @@
 //ZT: skald
 #include "tads-skald/skald.h"
 #include "tads-skald/skaldserver.h"
+#include "evaluation.h"
 
 //ZT: skald
 skald: SkaldUI
@@ -1174,9 +1175,9 @@ gameMain: GameMainDef
     initialPlayerChar = me
 
     newGame() {
-        
-        skald.start();
-        //skald.start(libGlobal.commandLineArgs);
+        startup.port = 49000;  // if not overridden by cmd line arg
+        startup.start();
+
         //XXX: for now, score links cause problems in SkaldUI, so turn off
         libGlobal.scoreObj.scoreNotify.isOn = nil;
 

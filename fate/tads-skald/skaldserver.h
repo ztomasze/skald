@@ -103,7 +103,7 @@ skaldServer : object
     // If server does not reply to CMDs, try setting skaldServer.hostname before you call
     // start().
     hostname = getLocalIP()
-    port = 49000
+    port = 49000    // set to nil to use a random system-assigned port
     quit = nil      //once true, the server will shutdown next chance it has
     connectionTimeout = nil  //if no UI requests received after this time in ms, 
                              //shuts down the server.  Set to nil to never timeout.
