@@ -282,14 +282,15 @@ def serveGame(game, user):
         port += 2
     webui = game.endswith('-webui.t3')
     if webui:
-        tads_opts = '--webhost ' + FILES_URL_SERVER
+        tads_opts = ''   # --webhost ' + FILES_URL_SERVER
     else:
         port += 1
         tads_opts = ''
         url = "http://{}:{}{}".format(FILES_URL_SERVER, port, FILES_URL_DIR)
-        
-        
-    cmd = ' '.join([TADS, tads_opts, os.path.join(DATA_DIR, game), str(port)])
+            
+    # XXX: game must be in the current directory for a log file to be generated
+    # by frobs/tads.  So must use only game name and set cwd to work.
+    cmd = ' '.join([TADS, tads_opts, game, str(port)])
 
     # save output to file
     outputfile = "{}-{}.output".format(port, game)
@@ -297,6 +298,7 @@ def serveGame(game, user):
 
     # spawn separate process
     subprocess.Popen(cmd, shell=True, close_fds=True,
+                    cwd=DATA_DIR,
                     stdin=open(DEVNULL),
                     stdout=open(outputfile, 'w'),
                     stderr=open(outputfile + '.err', 'w'))
