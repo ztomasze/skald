@@ -45,7 +45,7 @@
 //ZT: skald
 #include "tads-skald/skald.h"
 #include "tads-skald/skaldserver.h"
-#include "evaluation.h"
+#include "evaluation/startup.h"
 
 //ZT: skald
 skald: SkaldUI
