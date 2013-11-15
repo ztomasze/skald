@@ -15,6 +15,7 @@
 #include <en_us.h>
 #include "tads-skald/skald.h"
 #include "tads-skald/skaldserver.h"
+#include "evaluation/startup.h"
 
 /*
  * Game credits and version information.
@@ -69,9 +70,8 @@ gameMain: GameMainDef
 
     
     newGame() {
-        skaldServer.connectionTimeout = (5 * 60 * 1000); // 5 min
-//        skald.start();
-        skald.start(libGlobal.commandLineArgs);
+        startup.port = 49000;  // if not overridden by cmd line arg
+        startup.start();
         inherited();
     }
 
@@ -146,8 +146,8 @@ DefineIAction(Help)
       \b
       You can complete all actions supported by this game using only these
       verbs/commands: LOOK, INVENTORY, WAIT, GO (direction), EXAMINE (object),
-      GET (object), DROP (object), KILL (creature), LISTEN to (object),
-      TRACE (object), CLIMB (object)
+      GET (object), DROP (object), CLIMB (object), EAT (object), 
+      KILL (creature), LISTEN to (object), PUSH (object), TRACE (object).
       \b
       Stuck? EXAMINE everything that might be interesting.  The resulting object
       descriptions will sometimes give you hint as to what you might do next.');
