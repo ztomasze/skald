@@ -8,10 +8,10 @@
 # discarded, the formatting might be changed, and some option
 # settings might be modified.
 
+-o queen-skald.t3
 -D LANGUAGE=en_us
 -D MESSAGESTYLE=neu
 -D TADS_INCLUDE_NET
--D TEXT_MODE
 -Fy obj
 -Fo obj
 -v
