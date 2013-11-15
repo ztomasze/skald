@@ -19,6 +19,11 @@ replace initUI() {
         getLaunchHostAddr(), startup.port, 1024*1024);
     webSession.connectUI(srv);
 }
+#else
+// skald mode.  Need HTML mode to activate conversion of exit links.
+replace checkHtmlMode() {
+  return true;
+}
 #endif
 
 /*
