@@ -122,7 +122,7 @@ gameMain: GameMainDef
 
         "<hr><center><b><<versionInfo.name>></b>\n <<versionInfo.byline>>\n";
         if (!skald.isOn()) {
-            "[Type HELP for instructions on how to play.]\b";
+            "\b[Type HELP for instructions on how to play.]\b";
         }
         "</center><hr>";
 

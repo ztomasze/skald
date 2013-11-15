@@ -972,8 +972,8 @@ coin: PresentLater, Thing 'valuable silver coin/quidbuck' 'silver coin' @toilet
  */
 versionInfo: GameID
     name = 'Captain Fate'
-    byline = 'by Roger Firth and Sonja Kesserich (this TADS 3
-     version by Eric Eve, modified by Zach Tomaszewski)'
+    byline = 'by Roger Firth and Sonja Kesserich\nConverted to TADS3
+       by Eric Eve\nModified by Zach Tomaszewski'
     htmlByline = 'by <a href="mailto:your-email@your-address.com">
                   YOUR NAME</a>'
     version = '1.0'
@@ -1198,6 +1198,12 @@ gameMain: GameMainDef
          deciphers a stray radio call from the police. There's some madman
          attacking the population in Granary Park! You must change into your
          Captain Fate <<skald.a(costume, 'costume')>> fast...!\b";
+        
+        "<hr><center><b><<versionInfo.name>></b>\n <<versionInfo.byline>>\n";
+        if (!skald.isOn()) {
+            "\b[Type HELP for instructions on how to play.]\b";
+        }
+        "</center><hr>";
     }
 
     /*
@@ -1299,6 +1305,34 @@ modify Thing
   {
     verify() { illogical('You neither can nor need to pay {the dobj/him}. '); }
   }
+;
+
+// help message for newbies
+DefineIAction(Help)
+    execAction() {
+        mainReport('This game is an example of interactive fiction.
+      Read the descriptions of what is happening and then type in commands
+      specifying what you want your character (John Covarth) to do next.
+      \b
+      Some sample commands include: LOOK, GO NORTH, CHANGE CLOTHES, and 
+      ASK BENNY FOR MENU.
+      The directions you can move from the current location are listed in the
+      header above the game text.
+      \b
+      You can complete all actions supported by this game using only these
+      verbs/commands: LOOK, INVENTORY, GO (direction), EXAMINE (object),
+      GET (object), DROP (object), CHANGE (object), DRINK (object), FLIP (object), 
+      OPEN (object), CLOSE (object), 
+      LOCK (object) with (key), UNLOCK (object) with (key), 
+      ASK (person) for (object), GIVE (object) to (person), 
+      ATTACK (person), PAY (person).
+      \b
+      Stuck? EXAMINE everything that might be interesting.  The resulting object
+      descriptions will sometimes give you hint as to what you might do next.');
+    }
+;
+VerbRule(Help)
+     'help' : HelpAction
 ;
 
 // END OF ORIGINAL VERSION
