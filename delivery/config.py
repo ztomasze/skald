@@ -36,7 +36,6 @@ RESPONSE_SURVEY_URL = 'http://www.surveygizmo.com/s3/439486/Demeter-Evaluation-P
 # Location of TADS interpreter capable of acting as a server
 # May include any TADS options, after which the game file will be appended.
 TADS = '/usr/local/bin/frob --interface plain -N00 --no-pause --webhost ' + FILES_URL_SERVER
-#TADS = '/usr/bin/wine ' + DATA_DIR + '/t3run.exe -plain -cs ASCII -ns0 -webhost ' + FILES_URL_SERVER
 
 # Where to read/write to the void
 DEVNULL = subprocess.DEVNULL

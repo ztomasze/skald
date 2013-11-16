@@ -30,6 +30,13 @@ import time
 
 from config import *
 
+# group 0: game 0, then 1  (port 1,4)
+# group 1: game 2, then 3. (port 2,3)
+# ports are different: +1 or 2 for fate, +3 or 4 for queen, odd for webui, even for Skald
+#
+GAMES = ['fate-webui.t3', 'queen-skald.t3', 'fate-skald.t3', 'queen-webui.t3']
+
+
 def main():
     runStudy()
       
@@ -48,49 +55,44 @@ def runStudy():
       logTime(user, "Start")
       group = assignToGroup()
       logTime(user, "Grp=" + str(group))
-  #    welcomePage(user, group)
-      serveGames(user)
+      welcomePage(user, group)
       return
 
-    elif not re.compile(r"\d{1,5}$").match(user) or int(user) < MIN_USER_PORT:
-      #bad user
-      returnStatus(400, "Bad username format")
-      return
+    elif not re.compile(r"\d{1,5}$").match(user) or int(user) < MIN_USER_PORT or \
+            int(user) % 5 != 0:
+        #bad user
+        returnStatus(400, "Bad username format")
+        return
 
     assert user  # have a valid user given from here one
+        
+    game = form.getfirst('game', None)  # direct game request
+    stage = form.getfirst('s', 0) or form.getfirst('stage', 0)
+    if stage:
+        if stage in ['1', '2']:
+            #a valid stage to be in
+            stage = int(stage)
+        elif not game:
+            returnStatus(400, "Given stage argument (" + str(stage) + ") is not supported.")
+            return
 
-    game = form.getfirst('game', None)
-    if game:  # direct game request
+    if user.endswith('5') and not game:
+        # free play
+        serveGames(user)
+        return
+
+    if game and not stage:  # direct game request
+        logTime(user, "Game=" + game)
         serveGame(game, user)
+        return 
+
+    if stage and not game:
+        logTime(user, stage)
+        game = getGame(user, stage)
+        serveGame(game, user, stage)
         return
-  
-
-    #get any passed stage of survey so far (if not uploading)
-    """if not filename:
-      stage = form.getfirst('s', 0) or form.getfirst('stage', 0)
-      if stage and stage == '1' or stage == '2':
-        #a valid stage to be in
-        stage = int(stage)
-      else:
-        returnStatus(400, "Given stage argument (" + str(stage) + ") is not supported.")
-        return
-
-    #now, do what we came to do...
-    #first, log what we're doing
-    logTime(user, stage)
-
-    #serve the correct game for this user
-    game = getGame(user, stage)
-    if game:
-      generateJNLP(user, game)
-      serveApplet(user, game, stage)
-    else:
-      returnStatus(400, "Something wrong: No such game to play.<br>\
-        Check that you are really a valid user and that you submitted which stage you are on.")
-      return
-
-    """
-    returnStatus(400, "Incomplete request or invalid server state.")
+        
+    returnStatus(400, "Illegal parameter state; could not continue.")
     return
     
   
@@ -176,23 +178,28 @@ def generateUser():
 
 def getGame(user, stage):
   """
-  Opens the times file for the given user and finds the first timestamp for
-  "Grp=#:", where # is the number of the grp.  Then uses this number, stage,
-  and VERSION_BASE to return the number of the game this user should currently
-  be playing.
+  Returns the game the given user should be playing based on group 
+  and current stage.
   
-  Returns 0 if no Grp= assigned yet or if stage is not 1 or 2.
+  Returns None if no Grp= assigned yet or if stage is not 1 or 2.
   """
+  grp = getGroup(user)
+  return GAMES[(2 * grp) + (int(stage) - 1)]
+
+
+def getGroup(user):
+  """
+  Opens the times file for the given user and finds the first timestamp for
+  "Grp=#:", where # is the number of the grp.  Returns this number, else 
+  exception.
+  """ 
   userTimes = open(os.path.join(DATA_DIR, user + TIMES_FILE), 'r')
   for line in userTimes:
     grp = re.compile("Grp=(\d):").match(line)
     if grp:
-      grp = int(grp.group(1))
-      if stage == 1:
-        return VERSION_BASE + grp
-      elif stage == 2:
-        return VERSION_BASE + 2 + grp
-  return 0
+      return int(grp.group(1))
+     
+  raise KeyError('Could not find group for ' + user)
   
   
 def logTime(user, stage=0):
@@ -222,11 +229,30 @@ def printHtmlPage(title, body, status=None):
     print()
     #print HTML
     print("""<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-  <html>
-  <head>
-  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-  <title>""" + title + """</title>
-  </head>""" + body + """</html>""")
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<title>""" + title + """</title>
+<style type="text/css">
+body {
+  font-family: sans-serif;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+.launcher {
+  width: 50%;
+  background-color: #f0f0f0;
+  font-weight; bold;
+  border: 1px solid black;
+  text-align: center;
+  padding: 2em;
+}
+</style>
+</head>""" + body + """</html>""")
 
 
 #TODO: refactor to use printHtmlPage
@@ -238,43 +264,38 @@ def returnStatus(status, detail):
   print("Status: " + str(status))
   print()
   #print HTML
-  print("""
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
-<title>""" + str(status) + """</title>
-</head>
-
-<body>
-  """)
+  body = "<body>"
   if status == 200:
-    print("<h3>200: OK</h3>")
+    body += "<h3>200: OK</h3>"
   elif status == 400:
-    print("<h3>400: Bad Request</h3>")
-    print("<p>The request you sent did not contain the required format/content: ")
+    body += "<h3>400: Bad Request</h3>"
+    body += "<p>The request you sent did not contain the required format/content: "
   elif status == 500:
-    print("<h3>500: Oops!</h3>")
-    print("<p>There was a script error on my end: ")
+    body += "<h3>500: Oops!</h3>"
+    body += "<p>There was a script error on my end: "
 
-  print(detail)
-  print("</p>")
-  print("""
-</body>
-</html> 
-  """)  
+  body += detail
+  body += "</p></body>"
+  printHtmlPage(str(status), body, status)
 
 
-def serveGame(game, user):
+def serveGame(game, user, stage=0):
     """
     Starts the given game file on a port derived from the given int(user).
     That is, user should be a string that converts to an int.  Will then
     add 1 to 4 to that base port number depending on the game requested:
     fate-webui: +1, fate-skald: +2, queen-webui: +3, queen-skald: +4
     
+    If a non-zero stage, will provide a landing page with the corresponding
+    linke to click when done.
+    
     """
-    if not re.compile(r'(fate|queen)-(skald|webui)\.t3').match(game):
+    if not game in GAMES:
         returnStatus(400, "Unsupported game requested.")
+        return
+        
+    if stage:
+        serveGamePage(game, user, stage)
         return
 
     port = int(user) + 1
@@ -299,7 +320,7 @@ def serveGame(game, user):
     # spawn separate process
     subprocess.Popen(cmd, shell=True, close_fds=True,
                     cwd=DATA_DIR,
-                    stdin=open(DEVNULL),
+                    stdin=DEVNULL,
                     stdout=open(outputfile, 'w'),
                     stderr=open(outputfile + '.err', 'w'))
     #print(cmd)
@@ -325,6 +346,34 @@ def serveGame(game, user):
     print()
 
 
+def serveGamePage(game, user, stage):
+    """
+    Creates a landing page with a link to start a game in a new window
+    and another link to continue with survey steps.
+    """
+    g = "Captain Fate" if game.startswith('fate') else "The Queen's Heart"
+    i = "Skald UI" if game.endswith('-skald.t3') else "Text UI"
+    s = "Game " + str(stage) + " of 2"
+    title = "{}: {} ({})".format(s, g, i)
+    h1 = "{}: {} <small>({})</small>".format(s, g, i)
+    gurl = "/cgi-bin/delivery.py?user={user}&game={game}".format(user=user, game=game)
+    body = """
+<body>
+<h1>""" + h1 + """</h1>
+<p>
+Click the link below to launch the game in a new window:
+<p class="launcher">
+<a href="{gurl}" target="_blank">{g}</a>
+</p>
+<p>
+Once you have played the game, 
+<a href="{surl}">click here to continue with the study</a>.
+</body>
+""".format(gurl=gurl, g=g, surl='survey')
+    printHtmlPage(title, body)
+    return
+
+
 def serveGames(user=MIN_USER_PORT):
     """
     Only serves up the four games with no user tracking.
@@ -343,7 +392,7 @@ def serveGames(user=MIN_USER_PORT):
 <li>Queen's Heart: 
   <a href="?user={0}&game=queen-webui.t3">text UI</a> / 
   <a href="?user={0}&game=queen-skald.t3">Skald UI</a>
-</body>""".format(user)
+</body>""".format(user)  #, GAMES
     printHtmlPage("Available Games", body) 
 
 
@@ -355,7 +404,7 @@ def welcomePage(user, group):
 <body>
 <h3>Welcome</h3>
 <p>
-Thanks for being an beta tester!  You are currently anonymous user """ + str(user) + """.
+Thank you for participating!
 <p>
 Please <a href='""" + BACKGROUND_SURVEY_URL + '?user=' + str(user) + '&group=' + str(group) + \
 """'><b>click here to begin</b></a>.

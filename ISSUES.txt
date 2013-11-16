@@ -1,13 +1,12 @@
 ## Delivery
 
-* timestamps into log files  
-  * start time (consent start), first play time, (review start), second play time, (review start)
-  * times for "closed window" quit
-  * webUI in all of this?
-* logging for both
 * log formats -> replayable -> recorded transcript
 * timeout works but not too low for both
 * deploy
+
+Issues:
+* A "stage 3" where can play any of the games one more time
+
 
 ## Queen's Heart
 
