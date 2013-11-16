@@ -20,11 +20,22 @@ replace initUI() {
     webSession.connectUI(srv);
 }
 #else
-// skald mode.  Need HTML mode to activate conversion of exit links.
+// skald mode
 replace checkHtmlMode() {
   return true;
 }
 #endif
+
+// regardless of mode, in evaluation mode, we want to prohibit normal end-of-game
+// option process, like restart!
+modify processOptions(lst) {
+#ifdef WEB_UI_MODE        
+    throw new QuittingException();  // REPLACE normal behavior
+#else
+    replaced(lst);
+#endif    
+}
+
 
 /*
  *   The game startup preprocessor that does the actual configuring.
