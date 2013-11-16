@@ -272,10 +272,10 @@ outside : OutdoorRoom 'Outside'
 
 + plankEnd : Fixture 'end long plank/end' 'plank'
     "<<if me.location == outside>>
-    It is the end of the long plank that hangs down into the well.  It is barely
+    It is the end of the long <<skald.a(plankEnd)>> that hangs down into the well.  It is barely
     hanging on, thanks to a couple rusty nails.  It would only take a little push
     to send it down into the well.<<else>>
-    One end of the heavy plank is submerged in the water, 
+    One end of the heavy <<skald.a(plankEnd)>> is submerged in the water, 
     while the other end leans on the far wall.<<end>>"
 
     initSpecialDesc = "<<if me.location == outside>>
