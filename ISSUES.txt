@@ -5,8 +5,16 @@
 * deploy
 
 Issues:
-* A "stage 3" where can play any of the games one more time
+* A "stage 3" where can play any of the games one more time?
 
+* To test: 
+ * game non-win ending (CF)
+ * reload window
+ * close and reopen window
+
+
+* Skald: damn scrolling to bottom
+* Skald: *** The End *** (from TADS) redundant with THE END (Skald)
 
 ## Queen's Heart
 
