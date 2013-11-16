@@ -903,15 +903,13 @@ toiletDoorInside: LockableWithKey, Door -> toiletDoor
 lightSwitch : Flashlight, Fixture 'light switch' 'light switch' @toilet
   "A notorious achievement of technological science, elegant yet
    easy to use. "
-  dobjFor(Push) asDobjFor(Switch)
+    dobjFor(Push) asDobjFor(Switch)
 
-    dobjFor(Switch) {
-        action() {
-            inherited;
-            if (self.isOn && !coin.moved) {
-                "As the fluorescent bulb flickers to life, your keen eyes catch a
-                subtle glint from the across the room near the <<skald.a(lavatory)>>. ";
-            }
+    makeLit(lit) {
+        inherited(lit);
+        if (lit && !coin.moved) {
+            "As the fluorescent bulb flickers to life, your keen eyes catch a
+            subtle glint from the across the room near the <<skald.a(lavatory)>>. ";
         }
     }
 ;
