@@ -6,15 +6,7 @@
 
 Issues:
 * A "stage 3" where can play any of the games one more time?
-
-* To test: 
- * game non-win ending (CF)
- * reload window
- * close and reopen window
-
-
 * Skald: damn scrolling to bottom
-* Skald: *** The End *** (from TADS) redundant with THE END (Skald)
 
 ## Queen's Heart
 
@@ -69,6 +61,8 @@ WontFix (for now)
   * Gives the definite indiction that the game has ended, allowing the UI to respond appropriately
 
 * scroll to top of new response (not to full bottom)
+* Skald: *** The End *** (from TADS) redundant with THE END (Skald)
+
 * order's separators
 * bug: toggling game control tabs
 ? demo game fleshed out

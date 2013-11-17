@@ -317,12 +317,13 @@ def serveGame(game, user, stage=0):
     outputfile = "{}-{}.output".format(port, game)
     outputfile = os.path.join(DATA_DIR, outputfile)
 
-    # spawn separate process
-    subprocess.Popen(cmd, shell=True, close_fds=True,
-                    cwd=DATA_DIR,
-                    stdin=DEVNULL,
-                    stdout=open(outputfile, 'w'),
-                    stderr=open(outputfile + '.err', 'w'))
+    # spawn separate process, but only if hasn't been started yet
+    if not os.path.exists(outputfile):
+        subprocess.Popen(cmd, shell=True, close_fds=True,
+                        cwd=DATA_DIR,
+                        stdin=DEVNULL,
+                        stdout=open(outputfile, 'w'),
+                        stderr=open(outputfile + '.err', 'w'))
     #print(cmd)
     time.sleep(1)  # give it a second to start
 
@@ -357,19 +358,23 @@ def serveGamePage(game, user, stage):
     title = "{}: {} ({})".format(s, g, i)
     h1 = "{}: {} <small>({})</small>".format(s, g, i)
     gurl = "/cgi-bin/delivery.py?user={user}&game={game}".format(user=user, game=game)
+    surl = RESPONSE_SURVEY_URL + "?user={}&stage={}".format(user, stage)
     body = """
 <body>
 <h1>""" + h1 + """</h1>
 <p>
-Click the link below to launch the game in a new window:
+Click the link in the box below to launch the game in a new window:
 <p class="launcher">
 <a href="{gurl}" target="_blank">{g}</a>
 </p>
 <p>
+Please play only once.  
+Your game session will end if 10 minutes pass without any input from you.
+<p>
 Once you have played the game, 
 <a href="{surl}">click here to continue with the study</a>.
 </body>
-""".format(gurl=gurl, g=g, surl='survey')
+""".format(gurl=gurl, g=g, surl=surl)
     printHtmlPage(title, body)
     return
 
