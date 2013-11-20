@@ -1,58 +1,42 @@
 ## Delivery
 
-* log formats -> replayable -> recorded transcript
-* timeout works but not too low for both
-* deploy
-
 Issues:
 * A "stage 3" where can play any of the games one more time?
 * Skald: damn scrolling to bottom
+  * this.mainScroller.ensureVisible(response);  ??
+  
 
 ## Queen's Heart
 
 WontFix
-+ feed?
++ feed verb
+
 
 ## Fate
 
 WontFix:
-+ Not every illogical (currently impossible) action is grayed out  (again, a bit more customizing would be req on TADS side; subtlty regarding illogicalness and overriding default library: removing clothes)
-+ Add Enter as verb, so can move from locations through Objects menus
++ Skald: Not every illogical (currently impossible) action is grayed out  
+  * More customizing would be req on TADS side
+  * Some subtlety regarding illogicalness and overriding default library: removing clothes
++ Skald: Add Enter as verb, so can move from locations through Objects menus
   * Should add Exit too, then.
   * Some weird Enter behavior to be fixed: can try to Enter street from within phone booth, but get weird response and no result
   * Will require some tweaking to drop doors from the list.
 
 ## TADS-Skald
 
-* Cannot compile a single game that will run in either WebUI or Skald mode.
-  They each tap in fairly deeply to the startup and output processes in an incompatible way.
-  (Future development might resolve this to handle each pain point differently
-  depending on the current mode.)
-  However, can easily compile for one mode or the other.
-  If you compile for either WebUI or text mode, just don't call skald.start()
-
-  Can I compile a game that will run in different modes--skald, WebUI, or text-mode--based on a command line arg?
-  
-  text mode and Skald are compatible at.  WebUI and Skald are not.
-
-* Starting server
+* Starting server still buggy depending on context
   * Must specify network security level of 0.  (-ns0 in t3run, -N0 for Frob)
   * Recommend you run with plain output on server side (-plain in t3run, -i plain for Frob)
   * Often won't start
     * check that nothing else is already on that port
-    * Needs hostname set, but cannot set it manually in code as a string under many system.
+    * Needs hostname set, but cannot set it manually in code as a string under many systems.
       * Ex: Under t3run, server won't start.  Under HTML TADS, starts, but get empty CMDs received.
     * Running locally?  Need to use getLocalIP().  This seems to work even if you are connecting using 'localhost' in your browser.  (TADS HTML will grab 127.0.01, but t3run will grab your external IP.  But still work as if 'localhost') (getLaunchHostAddr() does not work locally.)
     * Works for me on deployment.  
     * If server does not start or does not reply to CMDs, try manually setting skaldServer.hostname with your server's domain name before you call skald.start()
 
-
-
 * on invalid command (ie, an unknown adjective used), no reponse.  But error message appears at start of next turn.
-
-WontFix (for now)
-+ Inventory listings don't get linked
-+ Not every mention is linked.  This is due to authoring.  Highlight same color not yet implemented.
 
 
 ## GWT-Skald
