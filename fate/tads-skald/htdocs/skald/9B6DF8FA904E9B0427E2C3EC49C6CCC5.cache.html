@@ -4,7 +4,7 @@ var $gwt_version = "2.5.0";
 var $wnd = parent;
 var $doc = $wnd.document;
 var $moduleName, $moduleBase;
-var $strongName = 'F595F51C51D314136D96F84FF1072BD0';
+var $strongName = '9B6DF8FA904E9B0427E2C3EC49C6CCC5';
 var $stats = $wnd.__gwtStatsEvent ? function(a) {return $wnd.__gwtStatsEvent(a);} : null,
 $sessionId = $wnd.__gwtStatsSessionId ? $wnd.__gwtStatsSessionId : null;
 $stats && $stats({moduleName:'skald',sessionId:$sessionId,subSystem:'startup',evtGroup:'moduleStartup',millis:(new Date()).getTime(),type:'moduleEvalStart'});
@@ -7717,6 +7717,25 @@ function triggerScrollEvent(elem){
 
 defineSeed(344, 343, {}, ScrollImpl$ScrollImplTrident_0);
 var resizeHandler = null, scrollHandler = null;
+function $ensureVisible(this$static, item){
+  var element, scroll_0;
+  scroll_0 = this$static.scrollableElem;
+  element = item.element;
+  $ensureVisibleImpl(scroll_0, element);
+}
+
+function $ensureVisibleImpl(scroll_0, e){
+  if (!e)
+    return;
+  var item = e;
+  var realOffset = 0;
+  while (item && item != scroll_0) {
+    realOffset += item.offsetTop;
+    item = item.offsetParent;
+  }
+  scroll_0.scrollTop = realOffset - scroll_0.offsetHeight / 2;
+}
+
 function $getMaximumHorizontalScrollPosition_0(this$static){
   return $getMaximumHorizontalScrollPosition((!impl_3 && (impl_3 = new ScrollImpl$ScrollImplTrident_0) , this$static.scrollableElem));
 }
@@ -8504,6 +8523,8 @@ function SimpleEventBus$2_0(this$0, val$type, val$handler){
 }
 
 defineSeed(369, 1, makeCastMap([Q$SimpleEventBus$Command]), SimpleEventBus$2_0);
+--></script>
+<script><!--
 _.execute_0 = function execute_13(){
   $doAddNow(this.this$0, this.val$type, this.val$source, this.val$handler);
 }
@@ -8520,8 +8541,6 @@ function SimpleEventBus$3_0(this$0, val$type, val$source, val$handler){
 }
 
 defineSeed(370, 1, makeCastMap([Q$SimpleEventBus$Command]), SimpleEventBus$3_0);
---></script>
-<script><!--
 _.execute_0 = function execute_14(){
   $doRemoveNow(this.this$0, this.val$type, this.val$source, this.val$handler);
 }
@@ -8564,7 +8583,7 @@ function $displayResponse(this$static, html){
   $enableResponse(this$static, response);
   $add_4(this$static.main, response);
   this$static.lastResponse = response;
-  $scrollToBottom(this$static.mainScroller);
+  $ensureVisible(this$static.mainScroller, response);
 }
 
 function $enableResponse(this$static, response){
@@ -9403,6 +9422,8 @@ _.show = function show_0(){
 _.contents = null;
 _.height = null;
 _.scrollToBottom = false;
+--></script>
+<script><!--
 _.scroller = null;
 function HidingPopup$1_0(this$0){
   this.this$0 = this$0;
@@ -9419,8 +9440,6 @@ function ArrayStoreException_0(){
 }
 
 defineSeed(392, 84, makeCastMap([Q$Serializable, Q$Exception, Q$Throwable]), ArrayStoreException_0);
---></script>
-<script><!--
 function $clinit_Boolean(){
   $clinit_Boolean = nullMethod;
   FALSE = new Boolean_1(false);
@@ -10579,6 +10598,8 @@ function $hashCode(this$static){
   return k;
 }
 
+--></script>
+<script><!--
 function $indexOf_1(this$static, toFind){
   var i, n;
   for (i = 0 , n = this$static.array.length; i < n; ++i) {
@@ -10593,8 +10614,6 @@ function checkIndex(index, size){
   (index < 0 || index >= size) && indexOutOfBounds(index, size);
 }
 
---></script>
-<script><!--
 function indexOutOfBounds(index, size){
   throw new IndexOutOfBoundsException_1('Index: ' + index + ', Size: ' + size);
 }
@@ -11801,6 +11820,8 @@ function $compare(a, b){
   return a.compareTo$(b);
 }
 
+--></script>
+<script><!--
 function $compare_0(a, b){
   return $compare(dynamicCast(a, Q$Comparable), dynamicCast(b, Q$Comparable));
 }
@@ -11814,8 +11835,6 @@ function $inOrderAdd(this$static, list, type, current, fromKey, toKey){
   !!current.child[1] && $inOrderAdd(this$static, list, type, current.child[1], fromKey, toKey);
 }
 
---></script>
-<script><!--
 function $inRange(type, key, fromKey, toKey){
   if (type.toKeyValid()) {
     if ($compare(dynamicCast(key, Q$Comparable), dynamicCast(toKey, Q$Comparable)) >= 0) {

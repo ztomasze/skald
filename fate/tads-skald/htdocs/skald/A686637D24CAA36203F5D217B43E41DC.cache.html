@@ -4,7 +4,7 @@ var $gwt_version = "2.5.0";
 var $wnd = parent;
 var $doc = $wnd.document;
 var $moduleName, $moduleBase;
-var $strongName = 'F7A4C3194D157133C6AEE748CC18214D';
+var $strongName = 'A686637D24CAA36203F5D217B43E41DC';
 var $stats = $wnd.__gwtStatsEvent ? function(a) {return $wnd.__gwtStatsEvent(a);} : null,
 $sessionId = $wnd.__gwtStatsSessionId ? $wnd.__gwtStatsSessionId : null;
 $stats && $stats({moduleName:'skald',sessionId:$sessionId,subSystem:'startup',evtGroup:'moduleStartup',millis:(new Date()).getTime(),type:'moduleEvalStart'});
@@ -7586,6 +7586,25 @@ function ScrollImpl_0(){
 
 defineSeed(340, 1, {}, ScrollImpl_0);
 var impl_3 = null;
+function $ensureVisible(this$static, item){
+  var element, scroll_0;
+  scroll_0 = this$static.scrollableElem;
+  element = item.element;
+  $ensureVisibleImpl(scroll_0, element);
+}
+
+function $ensureVisibleImpl(scroll_0, e){
+  if (!e)
+    return;
+  var item = e;
+  var realOffset = 0;
+  while (item && item != scroll_0) {
+    realOffset += item.offsetTop;
+    item = item.offsetParent;
+  }
+  scroll_0.scrollTop = realOffset - scroll_0.offsetHeight / 2;
+}
+
 function $getMaximumHorizontalScrollPosition_0(this$static){
   return $getMaximumHorizontalScrollPosition((!impl_3 && (impl_3 = new ScrollImpl_0) , this$static.scrollableElem));
 }
@@ -7688,6 +7707,8 @@ _.hasNext = function hasNext(){
   return this.hasElement;
 }
 ;
+--></script>
+<script><!--
 _.next_0 = function next_0(){
   return $next(this);
 }
@@ -7703,8 +7724,6 @@ function $insert_5(this$static, child, direction, size){
   direction != ($clinit_DockLayoutPanel$Direction() , CENTER_0) && $insertSplitter(this$static, child);
 }
 
---></script>
-<script><!--
 function $insertSplitter(this$static, widget){
   var layout, splitter;
   layout = dynamicCast(widget.layoutData, Q$DockLayoutPanel$LayoutData);
@@ -8421,7 +8440,7 @@ function $displayResponse(this$static, html){
   $enableResponse(this$static, response);
   $add_4(this$static.main, response);
   this$static.lastResponse = response;
-  $scrollToBottom(this$static.mainScroller);
+  $ensureVisible(this$static.mainScroller, response);
 }
 
 function $enableResponse(this$static, response){
@@ -8541,6 +8560,8 @@ function GUI_0(){
   this.gameObjectRegistry = new GameObjectRegistry_0(of_0(($clinit_MenuOption() , COLLAPSE_HORIZONTALLY), initValues(_3Lcom_googlecode_skald_client_affordances_MenuOption_2_classLit, makeCastMap([Q$Serializable, Q$Enum_$1]), Q$MenuOption, [COLLAPSE_VERTICALLY])), new DisplayedSendCmd_0(null));
 }
 
+--></script>
+<script><!--
 defineSeed(366, 302, makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventListener, Q$HasVisibility, Q$HasWidgets, Q$IsWidget, Q$RequiresResize, Q$UIObject, Q$Widget]), GUI_0);
 _.actionsMenu = null;
 _.affordances_0 = null;
@@ -8552,8 +8573,6 @@ _.lastInput = null;
 _.lastResponse = null;
 _.logPanel = null;
 _.logPopup = null;
---></script>
-<script><!--
 _.main = null;
 _.mainScroller = null;
 _.menu = null;
@@ -9568,6 +9587,8 @@ function $lastIndexOf(this$static, str){
   return this$static.lastIndexOf(str);
 }
 
+--></script>
+<script><!--
 function $replace_0(this$static, from, to){
   var regex, replacement;
   regex = $replaceAll(from, '([/\\\\\\.\\*\\+\\?\\|\\(\\)\\[\\]\\{\\}$^])', '\\\\$1');
@@ -9580,8 +9601,6 @@ function $replaceAll(this$static, regex, replace){
   return this$static.replace(RegExp(regex, 'g'), replace);
 }
 
---></script>
-<script><!--
 function $split(this$static, regex, maxMatch){
   var compiled = new RegExp(regex, 'g');
   var out = [];
@@ -10771,6 +10790,8 @@ function $toArray(this$static){
   return cloneSubrange(this$static.array, this$static.size);
 }
 
+--></script>
+<script><!--
 function $toArray_0(this$static, out){
   var i;
   out.length < this$static.size && (out = createFrom(out, this$static.size));
@@ -10802,8 +10823,6 @@ function splice_1(array, index, deleteCount, value){
   array.splice(index, deleteCount, value);
 }
 
---></script>
-<script><!--
 function spliceArray(array, index, deleteCount, values){
   Array.prototype.splice.apply(array, [index, deleteCount].concat(values));
 }
@@ -11968,6 +11987,8 @@ function Level$LevelFiner_0(){
 }
 
 defineSeed(462, 458, makeCastMap([Q$Serializable]), Level$LevelFiner_0);
+--></script>
+<script><!--
 _.getName = function getName_3(){
   return 'FINER';
 }
@@ -12008,8 +12029,6 @@ _.getName = function getName_6(){
   return 'OFF';
 }
 ;
---></script>
-<script><!--
 _.intValue = function intValue_6(){
   return 2147483647;
 }

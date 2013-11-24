@@ -4,7 +4,7 @@ var $gwt_version = "2.5.0";
 var $wnd = parent;
 var $doc = $wnd.document;
 var $moduleName, $moduleBase;
-var $strongName = '5F8BD3FB5DBFB93E1F787556CEBD3883';
+var $strongName = 'BCB014C55B11A11516D352A1EF7046EF';
 var $stats = $wnd.__gwtStatsEvent ? function(a) {return $wnd.__gwtStatsEvent(a);} : null,
 $sessionId = $wnd.__gwtStatsSessionId ? $wnd.__gwtStatsSessionId : null;
 $stats && $stats({moduleName:'skald',sessionId:$sessionId,subSystem:'startup',evtGroup:'moduleStartup',millis:(new Date()).getTime(),type:'moduleEvalStart'});
@@ -8185,6 +8185,25 @@ function triggerScrollEvent(elem){
 
 defineSeed(350, 349, {}, ScrollImpl$ScrollImplTrident_0);
 var resizeHandler_1 = null, scrollHandler = null;
+function $ensureVisible(this$static, item){
+  var element, scroll_0;
+  scroll_0 = this$static.scrollableElem;
+  element = item.element;
+  $ensureVisibleImpl(scroll_0, element);
+}
+
+function $ensureVisibleImpl(scroll_0, e){
+  if (!e)
+    return;
+  var item = e;
+  var realOffset = 0;
+  while (item && item != scroll_0) {
+    realOffset += item.offsetTop;
+    item = item.offsetParent;
+  }
+  scroll_0.scrollTop = realOffset - scroll_0.offsetHeight / 2;
+}
+
 function $getMaximumHorizontalScrollPosition_0(this$static){
   return $getMaximumHorizontalScrollPosition((!impl_3 && (impl_3 = new ScrollImpl$ScrollImplTrident_0) , this$static.scrollableElem));
 }
@@ -8531,6 +8550,8 @@ function $insert_7(this$static, child, text, beforeIndex){
   $insert_6(this$static, child, new TabLayoutPanel$Tab_0(this$static, contents), beforeIndex);
 }
 
+--></script>
+<script><!--
 function $remove_6(this$static, index){
   var child, tab;
   if (index < 0 || index >= this$static.deckPanel.children_0.size) {
@@ -8551,8 +8572,6 @@ function $remove_6(this$static, index){
   return true;
 }
 
---></script>
-<script><!--
 function $remove_7(this$static, w){
   var index;
   index = $getWidgetIndex(this$static.deckPanel, w);
@@ -9102,7 +9121,7 @@ function $displayResponse(this$static, html){
   $enableResponse(this$static, response);
   $add_4(this$static.main, response);
   this$static.lastResponse = response;
-  $scrollToBottom(this$static.mainScroller);
+  $ensureVisible(this$static.mainScroller, response);
 }
 
 function $enableResponse(this$static, response){
@@ -9416,6 +9435,8 @@ function buildTrie(affordances){
   return root;
 }
 
+--></script>
+<script><!--
 function forObject(affords, obj){
   var a, a$iterator, element, element$array, element$index, element$max, found;
   found = new ArrayList_0;
@@ -9443,8 +9464,6 @@ function InvalidFormatException_0(message){
   RuntimeException_0.call(this, message);
 }
 
---></script>
-<script><!--
 function InvalidFormatException_1(cause){
   RuntimeException_1.call(this, 'affordances field of footer is invalidly formatted', cause);
 }
@@ -10483,6 +10502,8 @@ function $addAll(this$static, c){
   return changed;
 }
 
+--></script>
+<script><!--
 function $advanceToFind(iter, o){
   var t;
   while (iter.hasNext()) {
@@ -10528,8 +10549,6 @@ _.isEmpty = function isEmpty(){
   return this.size_0() == 0;
 }
 ;
---></script>
-<script><!--
 _.remove_1 = function remove_15(o){
   var iter;
   iter = $advanceToFind(this.iterator(), o);
@@ -11740,6 +11759,8 @@ _.previous = function previous_1(){
 }
 ;
 _.lit = null;
+--></script>
+<script><!--
 function Collections$UnmodifiableRandomAccessList_0(list){
   Collections$UnmodifiableList_0.call(this, list);
 }
@@ -11749,8 +11770,6 @@ function $compareTo_3(this$static, other){
   return signum(sub_0(fromDouble(this$static.jsdate.getTime()), fromDouble(other.jsdate.getTime())));
 }
 
---></script>
-<script><!--
 function $toString_4(this$static){
   var hourOffset, minuteOffset, offset;
   offset = -this$static.jsdate.getTimezoneOffset();

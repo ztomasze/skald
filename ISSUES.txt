@@ -2,8 +2,6 @@
 
 Issues:
 * A "stage 3" where can play any of the games one more time?
-* Skald: damn scrolling to bottom
-  * this.mainScroller.ensureVisible(response);  ??
   
 
 ## Queen's Heart
@@ -25,15 +23,12 @@ WontFix:
 
 ## TADS-Skald
 
+* Skald: *** The End *** (from TADS) redundant with THE END (Skald)
+  * Fixable within server.h
 
 ## GWT-Skald
 
-BUGS:
-* Skald: *** The End *** (from TADS) redundant with THE END (Skald)
-
 TODO:
-* gameOver: true/false field in in footer
-  * Gives the definite indiction that the game has ended, allowing the UI to respond appropriately
-* order's separators
-? demo game fleshed out
+FR: order's separators
+FR: demo game fleshed out
 
