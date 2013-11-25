@@ -5,7 +5,6 @@ Issues:
   
 
 ## Queen's Heart
-* should not be able attack/kill a dead mole
 
 WontFix
 + feed verb

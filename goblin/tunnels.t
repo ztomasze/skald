@@ -131,7 +131,11 @@ the_eastern_tunnels: Room 'The Eastern Tunnels'
     
     dobjFor(AttackWith) {
         verify() {
-            logical;
+            if (self.alive) {
+                logical;
+            }else {
+                illogical('The mole is already dead.');
+            }
         }
         check() { 
             if (self.inHole) {
@@ -150,7 +154,11 @@ the_eastern_tunnels: Room 'The Eastern Tunnels'
     }
     dobjFor(Attack) {
         verify() {
-            logical;
+            if (self.alive) {
+                logical;
+            }else {
+                illogical('The mole is already dead. There doesn\'t seem much point in torturing it further.');
+            }
         }        
         check() {
             if (self.inHole) failCheck('The <<skald.a(mole)>>  is still safe in his <<skald.a(hole, 'hole')>>.');
