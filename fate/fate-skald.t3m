@@ -11,6 +11,7 @@
 #-lib adv3/adv3 -> adv3/adv3web
 #-lib webui
 
+-o fate-skald.t3
 -pre
 -D LANGUAGE=en_us
 -D MESSAGESTYLE=neu
@@ -18,7 +19,6 @@
 -Fy obj
 -Fo obj
 -w1
--o fate-skald.t3
 
 ##sources
 -lib system

@@ -28,7 +28,3 @@ WontFix:
 
 ## GWT-Skald
 
-TODO:
-FR: order's separators
-FR: demo game fleshed out
-
