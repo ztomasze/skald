@@ -69,7 +69,7 @@ def runStudy():
     game = form.getfirst('game', None)  # direct game request
     stage = form.getfirst('s', 0) or form.getfirst('stage', 0)
     if stage:
-        if stage in ['1', '2']:
+        if stage in ['1', '2', '3']:
             #a valid stage to be in
             stage = int(stage)
         elif not game:
@@ -88,9 +88,13 @@ def runStudy():
 
     if stage and not game:
         logTime(user, stage)
-        game = getGame(user, stage)
-        serveGame(game, user, stage)
-        return
+        if stage == '3' or stage == 3:
+            thankYouPage(user)
+            return
+        else:
+            game = getGame(user, stage)
+            serveGame(game, user, stage)
+            return
         
     returnStatus(400, "Illegal parameter state; could not continue.")
     return
@@ -400,6 +404,28 @@ def serveGames(user=MIN_USER_PORT):
 </body>""".format(user)  #, GAMES
     printHtmlPage("Available Games", body) 
 
+def thankYouPage(user):
+    user = str(int(user) + 5)
+    body = """
+<body>
+<h3>Thank you!</h3>
+<p>
+This concludes the study. 
+<p>
+Thank you very much for contributing your time to this project! 
+Your help is greatly appreciated.
+<p>
+If you want to, you may
+<a href="?user={}">replay any of the games a second time</a>.
+<p>
+Thanks again,
+<p>
+--Zach Tomaszewski<br>
+ztomasze@hawaii.edu
+</p>
+</body>""".format(user)
+    printHtmlPage('Thank you!', body)
+    
 
 def welcomePage(user, group):
     """
