@@ -173,11 +173,15 @@ the_queens_chambers: Room 'The Queen\'s Chambers'
         as you have done so many times before.  You let out a long sigh and
         listen... but you hear nothing.
         \b
-        Quivering, you take a deep breath, hold it, and listen again.  And now
-        you feel it once more, faintly, that beating you know so well, the beating
-        in your own ears, the beating of the Queen's heart.
+        Quivering, you repeat the well-practiced ritual: 
+        you take a deep breath, hold it, and listen again.  And now
+        you feel it once more, faintly, that beating you know so well, 
+        the beating of the Queen's heart... the beating of your own blood in 
+        your ears.
         \b
         Puzzled, you exhale.  The beating stops.
+        \b
+        Your glammer is gone, the illusion broken.
         \b
         You are a goblin, alone.  Your sorrow has never been so heavy.";
             finishGameMsg('The End', []);
