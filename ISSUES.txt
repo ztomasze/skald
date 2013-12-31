@@ -5,6 +5,9 @@
 
 WontFix
 + feed verb
+* "glammer" should probably be "glamour" or "glamor".
+  * "glammer" -- used by Stephen King in the Dark Tower series
+  * "glamer" -- used by D&D 3.5 (and possibly other editions)
 
 
 ## Fate
